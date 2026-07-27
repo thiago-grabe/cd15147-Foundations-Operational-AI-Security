@@ -1,0 +1,133 @@
+NORTHSTAR TECHNOLOGIES
+PLATFORM RELEASE NOTES
+Version 2.5.0
+Release Date: June 1, 2023
+
+================================================================================
+OVERVIEW
+================================================================================
+
+We're excited to announce the release of Northstar Platform v2.5.0! This release
+includes significant performance improvements, new collaboration features, and
+important security updates.
+
+================================================================================
+NEW FEATURES
+================================================================================
+
+1. REAL-TIME DASHBOARD COLLABORATION
+   - Multiple users can now view and edit dashboards simultaneously
+   - See who else is viewing the same dashboard with presence indicators
+   - Live cursor tracking for collaborative editing sessions
+   - Automatic conflict resolution for simultaneous edits
+
+2. ADVANCED DATA EXPORT OPTIONS
+   - Export data in CSV, JSON, Excel, and Parquet formats
+   - Schedule recurring exports (daily, weekly, monthly)
+   - Export directly to AWS S3 buckets with customer-provided credentials
+   - Compression options for large datasets (gzip, zip)
+
+3. CUSTOM ALERTING RULES ENGINE
+   - Create complex alerting conditions using our new rule builder
+   - Support for multi-condition alerts (AND/OR logic)
+   - Configurable escalation policies
+   - Integration with PagerDuty, Slack, Microsoft Teams, and email
+
+4. API v2.3 ENDPOINTS
+   - New /reports endpoint for programmatic report generation
+   - Enhanced /users endpoint with bulk operations support
+   - Webhook management endpoints
+   - Improved rate limiting with burst allowance
+
+================================================================================
+IMPROVEMENTS
+================================================================================
+
+PERFORMANCE
+- Dashboard load time reduced by 40% through query optimization
+- API response times improved by 25% on average
+- Reduced memory footprint for large dataset operations
+- Implemented lazy loading for dashboard widgets
+
+USER INTERFACE
+- Redesigned navigation sidebar with collapsible sections
+- New dark mode theme (beta) - enable in Settings > Appearance
+- Improved mobile responsiveness for all core features
+- Keyboard shortcuts for power users (press ? to see all shortcuts)
+
+INTEGRATIONS
+- Updated Salesforce connector to support API v57.0
+- New HubSpot integration for marketing analytics
+- Improved OAuth flow for all third-party integrations
+- Added support for Azure AD single sign-on
+
+================================================================================
+BUG FIXES
+================================================================================
+
+- Fixed issue where password reset emails were not sent to users with + in email
+- Resolved timezone display issue in scheduled report delivery
+- Fixed data truncation in CSV exports for fields exceeding 32,767 characters
+- Corrected calculation error in month-over-month comparison charts
+- Fixed session timeout not redirecting properly in embedded views
+- Resolved memory leak in real-time data streaming component
+- Fixed pagination issue when filtering large datasets
+
+================================================================================
+SECURITY UPDATES
+================================================================================
+
+- Upgraded TLS to 1.3 for all API communications
+- Implemented additional rate limiting protections against DDoS
+- Enhanced audit logging for administrative actions
+- Added IP allowlisting option for Enterprise accounts
+- Patched CVE-2023-XXXX vulnerability in authentication module
+
+================================================================================
+DEPRECATIONS
+================================================================================
+
+The following features are deprecated and will be removed in v3.0:
+
+- API v1.x endpoints (migration guide available in documentation)
+- Legacy report builder (use new Report Designer instead)
+- Email-based two-factor authentication (please switch to TOTP)
+
+================================================================================
+KNOWN ISSUES
+================================================================================
+
+- Dark mode may have display issues in certain chart visualizations
+- Export to Parquet format limited to datasets under 10GB
+- Custom fonts in PDF exports may not render correctly on some systems
+
+================================================================================
+UPGRADE INSTRUCTIONS
+================================================================================
+
+For Self-Hosted Customers:
+1. Back up your database before upgrading
+2. Review the migration guide at docs.northstartech.com/upgrade/2.5
+3. Update environment variables as specified in the changelog
+4. Run database migrations: northstar-cli migrate
+5. Restart all application services
+
+For Cloud Customers:
+- Upgrade will be automatically applied during your maintenance window
+- No action required
+
+================================================================================
+SUPPORT
+================================================================================
+
+For questions or issues related to this release:
+- Documentation: docs.northstartech.com
+- Support Portal: support.northstartech.com
+- Email: support@northstartech.com
+- Enterprise Customers: Contact your dedicated Customer Success Manager
+
+================================================================================
+
+Thank you for choosing Northstar Technologies!
+
+The Northstar Engineering Team

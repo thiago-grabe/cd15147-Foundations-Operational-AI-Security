@@ -1,0 +1,16 @@
+opportunity_id,company_name,contact_name,contact_email,deal_size,stage,probability,expected_close_date,sales_rep,lead_source,product_interest,notes
+OPP-2023-101,Quantum Analytics Inc,Richard Hayes,r.hayes@quantumanalytics.com,45000,Negotiation,75%,2023-07-15,James Garcia,Website,Enterprise Platform,Interested in full platform deployment; requires SOC2 compliance documentation
+OPP-2023-102,Pinnacle Construction,Maria Santos,m.santos@pinnacleconstruct.com,12000,Discovery,25%,2023-08-30,Amanda Thompson,Referral,Professional Plan,Referred by Atlas Manufacturing; needs project management integrations
+OPP-2023-103,Starlight Entertainment,Derek Wong,d.wong@starlightent.com,8500,Proposal,50%,2023-07-28,James Garcia,Trade Show,Professional Plan,Met at AWS re:Invent; interested in media asset management features
+OPP-2023-104,Northern Trust Services,Patricia Coleman,p.coleman@northerntrust.com,55000,Qualification,15%,2023-09-15,Amanda Thompson,Cold Outreach,Enterprise Platform,Large financial services firm; lengthy procurement process expected
+OPP-2023-105,Evergreen Consulting,Thomas Reed,t.reed@evergreenconsult.com,6000,Closed Won,100%,2023-06-20,James Garcia,Partner,Professional Plan,Consulting firm needing client reporting tools
+OPP-2023-106,Metro Health Network,Dr. Susan Park,s.park@metrohealth.org,35000,Demo Scheduled,40%,2023-08-10,Amanda Thompson,Website,Enterprise Platform,Healthcare network with strict HIPAA requirements
+OPP-2023-107,Coastal Shipping Ltd,Frank Morrison,f.morrison@coastalship.com,15000,Discovery,20%,2023-09-01,James Garcia,LinkedIn,Professional Plan,Logistics company looking to modernize operations
+OPP-2023-108,Dynamic Software Solutions,Angela Kim,a.kim@dynamicsoft.io,28000,Negotiation,80%,2023-07-05,Amanda Thompson,Referral,Enterprise Platform,Fast-growing startup; decision expected soon
+OPP-2023-109,Heritage Insurance Group,William Barnes,w.barnes@heritageins.com,42000,Proposal,60%,2023-07-25,James Garcia,Website,Enterprise Platform,Multi-state insurance provider; needs compliance features
+OPP-2023-110,Premier Education Services,Nancy Chen,n.chen@premieredu.com,5500,Qualification,30%,2023-08-20,James Garcia,Webinar,Starter Plan,K-12 education technology services
+OPP-2023-111,Alliance Manufacturing,Robert Turner,r.turner@alliancemfg.com,22000,Demo Scheduled,45%,2023-08-01,Amanda Thompson,Trade Show,Professional Plan,Mid-size manufacturer interested in workflow automation
+OPP-2023-112,Riverside Medical Center,Dr. James Liu,j.liu@riversidemc.org,48000,Discovery,25%,2023-09-30,Amanda Thompson,Cold Outreach,Enterprise Platform,Regional hospital system; complex IT infrastructure
+OPP-2023-113,TechForward Labs,Sarah Mitchell,s.mitchell@techforward.io,3500,Closed Lost,0%,2023-06-15,James Garcia,Website,Starter Plan,Lost to competitor; price sensitivity
+OPP-2023-114,Global Logistics Partners,Michael Adams,m.adams@globallogistics.com,32000,Proposal,55%,2023-07-20,Amanda Thompson,Partner,Enterprise Platform,International logistics company with offices in 12 countries
+OPP-2023-115,Sunrise Financial Advisors,Jennifer Lee,j.lee@sunrisefa.com,9000,Qualification,35%,2023-08-25,James Garcia,Webinar,Professional Plan,Financial advisory firm with 50+ advisors

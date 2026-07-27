@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Authentication Guide - Northstar Technologies</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1, h2, h3 { color: #1a365d; }
+        code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; font-family: 'Monaco', 'Menlo', monospace; }
+        pre { background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        .warning { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0; }
+        .info { background: #d1ecf1; border-left: 4px solid #17a2b8; padding: 15px; margin: 15px 0; }
+        table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #f8f9fa; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>API Authentication Guide</h1>
+        <p><strong>Northstar Technologies Developer Documentation</strong></p>
+        <p>Last updated: June 2023 | API Version: 2.3</p>
+    </header>
+
+    <nav>
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#api-keys">API Key Authentication</a></li>
+            <li><a href="#oauth">OAuth 2.0</a></li>
+            <li><a href="#jwt">JWT Tokens</a></li>
+            <li><a href="#best-practices">Security Best Practices</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+        </ul>
+    </nav>
+
+    <section id="overview">
+        <h2>Overview</h2>
+        <p>The Northstar API supports multiple authentication methods to accommodate different use cases and security requirements. All API requests must be authenticated using one of the following methods:</p>
+        <ul>
+            <li><strong>API Keys</strong> - Best for server-to-server integrations</li>
+            <li><strong>OAuth 2.0</strong> - Best for user-facing applications</li>
+            <li><strong>JWT Tokens</strong> - Best for microservices and short-lived sessions</li>
+        </ul>
+        <div class="info">
+            <strong>Base URL:</strong> All API requests should be made to <code>https://api.northstartech.com/v2</code>
+        </div>
+    </section>
+
+    <section id="api-keys">
+        <h2>API Key Authentication</h2>
+        <p>API keys provide a simple way to authenticate server-to-server requests. Each API key is associated with a specific account and has configurable permissions.</p>
+
+        <h3>Generating an API Key</h3>
+        <ol>
+            <li>Log in to the Northstar Dashboard</li>
+            <li>Navigate to <strong>Settings → API Keys</strong></li>
+            <li>Click <strong>Generate New Key</strong></li>
+            <li>Select the appropriate permissions for your use case</li>
+            <li>Copy and securely store your API key (it will only be shown once)</li>
+        </ol>
+
+        <h3>Using API Keys</h3>
+        <p>Include your API key in the <code>Authorization</code> header:</p>
+        <pre>
+curl -X GET "https://api.northstartech.com/v2/users" \
+  -H "Authorization: Bearer ns_live_abc123xyz789" \
+  -H "Content-Type: application/json"
+        </pre>
+
+        <h3>API Key Types</h3>
+        <table>
+            <tr>
+                <th>Prefix</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><code>ns_live_</code></td>
+                <td>Production</td>
+                <td>Full access to production data and operations</td>
+            </tr>
+            <tr>
+                <td><code>ns_test_</code></td>
+                <td>Test</td>
+                <td>Access to sandbox environment only</td>
+            </tr>
+            <tr>
+                <td><code>ns_restricted_</code></td>
+                <td>Restricted</td>
+                <td>Limited permissions, read-only access</td>
+            </tr>
+        </table>
+
+        <div class="warning">
+            <strong>Security Warning:</strong> Never expose API keys in client-side code, public repositories, or logs. Rotate keys immediately if compromised.
+        </div>
+    </section>
+
+    <section id="oauth">
+        <h2>OAuth 2.0 Authentication</h2>
+        <p>OAuth 2.0 is recommended for applications that access Northstar on behalf of users. We support the Authorization Code flow with PKCE.</p>
+
+        <h3>OAuth Endpoints</h3>
+        <table>
+            <tr>
+                <th>Endpoint</th>
+                <th>URL</th>
+            </tr>
+            <tr>
+                <td>Authorization</td>
+                <td><code>https://auth.northstartech.com/oauth/authorize</code></td>
+            </tr>
+            <tr>
+                <td>Token</td>
+                <td><code>https://auth.northstartech.com/oauth/token</code></td>
+            </tr>
+            <tr>
+                <td>Revoke</td>
+                <td><code>https://auth.northstartech.com/oauth/revoke</code></td>
+            </tr>
+        </table>
+
+        <h3>Authorization Code Flow</h3>
+        <p><strong>Step 1:</strong> Redirect user to authorization endpoint</p>
+        <pre>
+https://auth.northstartech.com/oauth/authorize?
+  response_type=code&
+  client_id=YOUR_CLIENT_ID&
+  redirect_uri=https://yourapp.com/callback&
+  scope=read:users write:data&
+  state=random_state_string&
+  code_challenge=BASE64_CHALLENGE&
+  code_challenge_method=S256
+        </pre>
+
+        <p><strong>Step 2:</strong> Exchange authorization code for tokens</p>
+        <pre>
+curl -X POST "https://auth.northstartech.com/oauth/token" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "grant_type=authorization_code" \
+  -d "code=AUTHORIZATION_CODE" \
+  -d "redirect_uri=https://yourapp.com/callback" \
+  -d "client_id=YOUR_CLIENT_ID" \
+  -d "code_verifier=ORIGINAL_CODE_VERIFIER"
+        </pre>
+
+        <h3>Available Scopes</h3>
+        <table>
+            <tr>
+                <th>Scope</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><code>read:users</code></td>
+                <td>Read user information</td>
+            </tr>
+            <tr>
+                <td><code>write:users</code></td>
+                <td>Create and update users</td>
+            </tr>
+            <tr>
+                <td><code>read:data</code></td>
+                <td>Read data and reports</td>
+            </tr>
+            <tr>
+                <td><code>write:data</code></td>
+                <td>Create and modify data</td>
+            </tr>
+            <tr>
+                <td><code>admin</code></td>
+                <td>Full administrative access</td>
+            </tr>
+        </table>
+    </section>
+
+    <section id="jwt">
+        <h2>JWT Token Authentication</h2>
+        <p>JSON Web Tokens (JWT) can be used for short-lived authentication, particularly useful for microservices architectures.</p>
+
+        <h3>Token Structure</h3>
+        <pre>
+{
+  "header": {
+    "alg": "RS256",
+    "typ": "JWT"
+  },
+  "payload": {
+    "sub": "user_123",
+    "iss": "https://auth.northstartech.com",
+    "aud": "https://api.northstartech.com",
+    "exp": 1687654321,
+    "iat": 1687650721,
+    "scope": "read:users write:data"
+  }
+}
+        </pre>
+
+        <h3>Token Expiration</h3>
+        <ul>
+            <li>Access tokens expire after <strong>1 hour</strong></li>
+            <li>Refresh tokens expire after <strong>30 days</strong></li>
+            <li>Use the refresh token to obtain new access tokens without re-authentication</li>
+        </ul>
+    </section>
+
+    <section id="best-practices">
+        <h2>Security Best Practices</h2>
+        <ol>
+            <li><strong>Use HTTPS:</strong> All API requests must use HTTPS. HTTP requests will be rejected.</li>
+            <li><strong>Rotate Keys Regularly:</strong> Rotate API keys every 90 days or immediately if compromised.</li>
+            <li><strong>Principle of Least Privilege:</strong> Request only the scopes and permissions you need.</li>
+            <li><strong>Secure Storage:</strong> Store credentials in environment variables or secure vaults, never in code.</li>
+            <li><strong>Monitor Usage:</strong> Regularly review API access logs in the dashboard.</li>
+            <li><strong>IP Allowlisting:</strong> Enterprise accounts can restrict API access to specific IP ranges.</li>
+        </ol>
+    </section>
+
+    <section id="troubleshooting">
+        <h2>Troubleshooting</h2>
+        <h3>Common Errors</h3>
+        <table>
+            <tr>
+                <th>Error Code</th>
+                <th>Message</th>
+                <th>Solution</th>
+            </tr>
+            <tr>
+                <td>401</td>
+                <td>Invalid or expired token</td>
+                <td>Check token validity and refresh if expired</td>
+            </tr>
+            <tr>
+                <td>403</td>
+                <td>Insufficient permissions</td>
+                <td>Verify your API key or token has required scopes</td>
+            </tr>
+            <tr>
+                <td>429</td>
+                <td>Rate limit exceeded</td>
+                <td>Implement exponential backoff and retry</td>
+            </tr>
+        </table>
+
+        <h3>Need Help?</h3>
+        <p>Contact our developer support team:</p>
+        <ul>
+            <li>Email: <a href="mailto:api-support@northstartech.com">api-support@northstartech.com</a></li>
+            <li>Developer Portal: <a href="https://developers.northstartech.com">developers.northstartech.com</a></li>
+            <li>Status Page: <a href="https://status.northstartech.com">status.northstartech.com</a></li>
+        </ul>
+    </section>
+
+    <footer>
+        <hr>
+        <p>&copy; 2023 Northstar Technologies. All rights reserved.</p>
+    </footer>
+</body>
+</html>

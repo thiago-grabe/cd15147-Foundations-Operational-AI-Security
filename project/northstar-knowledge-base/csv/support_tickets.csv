@@ -1,0 +1,19 @@
+ticket_id,created_date,customer_id,customer_name,priority,category,subject,status,assigned_to,resolution_date,sla_met
+TKT-2023-0001,2023-06-01 09:15:00,CUST001,Meridian Healthcare Systems,High,Authentication,Users unable to login after password reset,Resolved,Marcus Johnson,2023-06-01 14:30:00,Yes
+TKT-2023-0002,2023-06-02 11:30:00,CUST003,GreenLeaf Agriculture,Medium,Data Export,CSV export timing out for large datasets,Resolved,Priya Sharma,2023-06-03 10:15:00,Yes
+TKT-2023-0003,2023-06-03 08:45:00,CUST007,Atlas Manufacturing Co,Critical,API,REST API returning 500 errors intermittently,Resolved,Jessica Walker,2023-06-03 11:00:00,Yes
+TKT-2023-0004,2023-06-05 14:20:00,CUST002,Velocity Financial Group,High,Performance,Dashboard loading slowly during peak hours,Resolved,David Kim,2023-06-06 09:45:00,Yes
+TKT-2023-0005,2023-06-07 10:00:00,CUST010,Bright Future Insurance,Medium,Reporting,Custom report not including all date ranges,Resolved,Andrew Robinson,2023-06-08 16:30:00,Yes
+TKT-2023-0006,2023-06-08 16:45:00,CUST012,Nova Pharmaceuticals,High,Security,Request for additional IP whitelisting,Resolved,Ryan Hall,2023-06-09 10:00:00,Yes
+TKT-2023-0007,2023-06-10 09:30:00,CUST005,Pacific Retail Solutions,Low,Feature Request,Request for dark mode in dashboard,Open,Emily Davis,NULL,N/A
+TKT-2023-0008,2023-06-12 13:15:00,CUST009,Cascade Logistics,Medium,Integration,Webhook notifications not triggering,Resolved,Marcus Johnson,2023-06-13 11:30:00,Yes
+TKT-2023-0009,2023-06-14 11:00:00,CUST014,Silverline Banking,Critical,Compliance,Audit log missing entries for specific timeframe,Resolved,Ryan Hall,2023-06-14 15:45:00,Yes
+TKT-2023-0010,2023-06-15 08:30:00,CUST001,Meridian Healthcare Systems,High,Data,Data sync between environments delayed,In Progress,David Kim,NULL,N/A
+TKT-2023-0011,2023-06-16 14:00:00,CUST008,Horizon Media Group,Medium,UI/UX,Mobile responsive issues on analytics page,Open,Emily Davis,NULL,N/A
+TKT-2023-0012,2023-06-18 10:45:00,CUST015,EcoTech Solutions,Low,Documentation,API documentation outdated for v2.3 endpoints,Open,Brian Clark,NULL,N/A
+TKT-2023-0013,2023-06-19 09:00:00,CUST002,Velocity Financial Group,High,Authentication,SSO integration failing for new users,In Progress,Jessica Walker,NULL,N/A
+TKT-2023-0014,2023-06-20 15:30:00,CUST007,Atlas Manufacturing Co,Medium,Billing,Invoice discrepancy for May usage,Resolved,Daniel White,2023-06-21 12:00:00,Yes
+TKT-2023-0015,2023-06-21 11:15:00,CUST012,Nova Pharmaceuticals,Critical,Performance,Production environment experiencing latency,Resolved,David Kim,2023-06-21 13:30:00,Yes
+TKT-2023-0016,2023-06-22 08:00:00,CUST004,TechStart Innovations,Low,Training,Request for onboarding session for new team members,Scheduled,Kevin Wilson,NULL,N/A
+TKT-2023-0017,2023-06-23 16:20:00,CUST010,Bright Future Insurance,Medium,API,Rate limiting errors during batch processing,Open,Priya Sharma,NULL,N/A
+TKT-2023-0018,2023-06-25 10:30:00,CUST003,GreenLeaf Agriculture,High,Data,Data import failing for specific file format,In Progress,Marcus Johnson,NULL,N/A

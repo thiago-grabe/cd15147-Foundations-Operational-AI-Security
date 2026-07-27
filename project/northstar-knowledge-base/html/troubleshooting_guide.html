@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshooting Guide - Northstar Technologies</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1, h2, h3 { color: #1a365d; }
+        .issue { background: #fff5f5; border: 1px solid #fc8181; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .issue h3 { color: #c53030; margin-top: 0; }
+        .solution { background: #f0fff4; border-left: 4px solid #38a169; padding: 15px; margin: 10px 0; }
+        .solution h4 { color: #276749; margin-top: 0; }
+        code { background: #edf2f7; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        .severity { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .critical { background: #fc8181; color: #742a2a; }
+        .high { background: #f6ad55; color: #744210; }
+        .medium { background: #faf089; color: #744210; }
+        .low { background: #9ae6b4; color: #22543d; }
+        .toc { background: #f7fafc; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+        .toc ul { columns: 2; -webkit-columns: 2; -moz-columns: 2; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Northstar Platform Troubleshooting Guide</h1>
+        <p><strong>Customer Support Knowledge Base</strong> | Last Updated: June 2023</p>
+    </header>
+
+    <nav class="toc">
+        <h2>Quick Navigation</h2>
+        <ul>
+            <li><a href="#login-issues">Login & Authentication Issues</a></li>
+            <li><a href="#performance">Performance Problems</a></li>
+            <li><a href="#data-issues">Data Import/Export Issues</a></li>
+            <li><a href="#api-errors">API Errors</a></li>
+            <li><a href="#integration">Integration Problems</a></li>
+            <li><a href="#billing">Billing & Account Issues</a></li>
+        </ul>
+    </nav>
+
+    <section id="login-issues">
+        <h2>Login & Authentication Issues</h2>
+
+        <div class="issue">
+            <h3><span class="severity high">HIGH</span> Unable to Login - "Invalid Credentials" Error</h3>
+            <p><strong>Symptoms:</strong> User receives "Invalid email or password" error despite entering correct credentials.</p>
+
+            <div class="solution">
+                <h4>Solution Steps:</h4>
+                <ol>
+                    <li>Verify the user is using the correct email address (check for typos)</li>
+                    <li>Ensure Caps Lock is not enabled</li>
+                    <li>Clear browser cache and cookies</li>
+                    <li>Try password reset: <code>app.northstartech.com/forgot-password</code></li>
+                    <li>Check if account is locked (3 failed attempts triggers 15-minute lockout)</li>
+                    <li>Verify the account hasn't been deactivated by admin</li>
+                </ol>
+                <p><strong>Escalation:</strong> If issue persists after password reset, check user account status in Admin Console or escalate to Tier 2.</p>
+            </div>
+        </div>
+
+        <div class="issue">
+            <h3><span class="severity medium">MEDIUM</span> SSO Login Failing</h3>
+            <p><strong>Symptoms:</strong> Enterprise users cannot authenticate via SSO. Error message: "SAML authentication failed"</p>
+
+            <div class="solution">
+                <h4>Solution Steps:</h4>
+                <ol>
+                    <li>Verify SSO configuration in Admin Settings → Security → SSO</li>
+                    <li>Check that IdP metadata is current and not expired</li>
+                    <li>Confirm user exists in both IdP and Northstar</li>
+                    <li>Verify email address matches exactly between systems</li>
+                    <li>Check IdP logs for detailed error messages</li>
+                </ol>
+                <p><strong>Common Causes:</strong></p>
+                <ul>
+                    <li>Certificate expiration (check expiry date in SSO config)</li>
+                    <li>Clock skew between IdP and Northstar (must be within 5 minutes)</li>
+                    <li>Missing required SAML attributes (email, firstName, lastName)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="issue">
+            <h3><span class="severity low">LOW</span> Two-Factor Authentication Code Not Working</h3>
+            <p><strong>Symptoms:</strong> User's 2FA code from authenticator app is rejected.</p>
+
+            <div class="solution">
+                <h4>Solution Steps:</h4>
+                <ol>
+                    <li>Verify device time is synchronized (most common cause)</li>
+                    <li>Wait for next code rotation (codes expire every 30 seconds)</li>
+                    <li>Try using backup codes if available</li>
+                    <li>Admin can disable 2FA temporarily: Admin Console → Users → [User] → Security → Disable 2FA</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <section id="performance">
+        <h2>Performance Problems</h2>
+
+        <div class="issue">
+            <h3><span class="severity high">HIGH</span> Dashboard Loading Slowly</h3>
+            <p><strong>Symptoms:</strong> Dashboards take more than 10 seconds to load or time out completely.</p>
+
+            <div class="solution">
+                <h4>Solution Steps:</h4>
+                <ol>
+                    <li>Check Northstar status page: <code>status.northstartech.com</code></li>
+                    <li>Identify if issue is specific to one dashboard or all dashboards</li>
+                    <li>For specific dashboard:
+                        <ul>
+                            <li>Check number of widgets (recommend &lt;20 per dashboard)</li>
+                            <li>Check date range (larger ranges = slower queries)</li>
+                            <li>Look for complex calculated fields</li>
+                        </ul>
+                    </li>
+                    <li>Check browser console for errors (F12 → Console tab)</li>
+                    <li>Try incognito/private browsing mode</li>
+                    <li>Clear browser cache</li>
+                </ol>
+                <p><strong>Optimization Tips:</strong></p>
+                <ul>
+                    <li>Use date filters to limit data volume</li>
+                    <li>Split large dashboards into multiple smaller ones</li>
+                    <li>Schedule data refreshes during off-peak hours</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="issue">
+            <h3><span class="severity critical">CRITICAL</span> API Requests Timing Out</h3>
+            <p><strong>Symptoms:</strong> API calls return 504 Gateway Timeout errors.</p>
+
+            <div class="solution">
+                <h4>Immediate Steps:</h4>
+                <ol>
+                    <li>Check status page for ongoing incidents</li>
+                    <li>Verify network connectivity from user's location</li>
+                    <li>Check if specific endpoint or all endpoints affected</li>
+                </ol>
+                <h4>For Specific Endpoints:</h4>
+                <pre>
+# Check API health
+curl -I https://api.northstartech.com/v2/health
+
+# Expected response: HTTP/2 200
+                </pre>
+                <p><strong>Escalate to Engineering if:</strong></p>
+                <ul>
+                    <li>Health endpoint is failing</li>
+                    <li>Multiple customers reporting same issue</li>
+                    <li>Issue persists more than 5 minutes</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="data-issues">
+        <h2>Data Import/Export Issues</h2>
+
+        <div class="issue">
+            <h3><span class="severity medium">MEDIUM</span> CSV Import Failing</h3>
+            <p><strong>Symptoms:</strong> CSV file upload fails with "Invalid file format" error.</p>
+
+            <div class="solution">
+                <h4>Common Causes & Solutions:</h4>
+                <ol>
+                    <li><strong>Encoding Issues:</strong>
+                        <ul>
+                            <li>File must be UTF-8 encoded</li>
+                            <li>Open in text editor, Save As with UTF-8 encoding</li>
+                        </ul>
+                    </li>
+                    <li><strong>Delimiter Problems:</strong>
+                        <ul>
+                            <li>Default delimiter is comma</li>
+                            <li>For semicolon-delimited files, use import settings to specify</li>
+                        </ul>
+                    </li>
+                    <li><strong>File Size:</strong>
+                        <ul>
+                            <li>Maximum file size: 500MB</li>
+                            <li>For larger files, use API bulk import or split file</li>
+                        </ul>
+                    </li>
+                    <li><strong>Special Characters:</strong>
+                        <ul>
+                            <li>Ensure fields with commas are properly quoted</li>
+                            <li>Remove or escape special characters in headers</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="issue">
+            <h3><span class="severity medium">MEDIUM</span> Data Export Timing Out</h3>
+            <p><strong>Symptoms:</strong> Large data exports fail or time out before completing.</p>
+
+            <div class="solution">
+                <h4>Solution Steps:</h4>
+                <ol>
+                    <li>Use filters to reduce data volume</li>
+                    <li>Export in smaller date range chunks</li>
+                    <li>Use scheduled export feature (runs asynchronously)</li>
+                    <li>For very large exports (&gt;1M rows), use API with pagination:
+                        <pre>
+GET /v2/data/export?limit=100000&offset=0
+GET /v2/data/export?limit=100000&offset=100000
+# Continue until all data retrieved
+                        </pre>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <section id="api-errors">
+        <h2>API Errors</h2>
+
+        <div class="issue">
+            <h3><span class="severity high">HIGH</span> Error 429: Rate Limit Exceeded</h3>
+            <p><strong>Symptoms:</strong> API returns 429 status code with "Rate limit exceeded" message.</p>
+
+            <div class="solution">
+                <h4>Rate Limits by Plan:</h4>
+                <ul>
+                    <li>Starter: 100 requests/minute</li>
+                    <li>Professional: 500 requests/minute</li>
+                    <li>Enterprise: 2000 requests/minute (customizable)</li>
+                </ul>
+                <h4>Solution:</h4>
+                <ol>
+                    <li>Implement exponential backoff in API client</li>
+                    <li>Check <code>X-RateLimit-Remaining</code> header before making requests</li>
+                    <li>Use webhooks instead of polling where possible</li>
+                    <li>Consider upgrading plan if consistently hitting limits</li>
+                </ol>
+                <pre>
+# Rate limit headers in response:
+X-RateLimit-Limit: 500
+X-RateLimit-Remaining: 0
+X-RateLimit-Reset: 1687654321
+                </pre>
+            </div>
+        </div>
+
+        <div class="issue">
+            <h3><span class="severity medium">MEDIUM</span> Error 401: Unauthorized</h3>
+            <p><strong>Symptoms:</strong> API returns 401 with "Invalid or expired token" message.</p>
+
+            <div class="solution">
+                <h4>Solution Steps:</h4>
+                <ol>
+                    <li>Verify API key is correct and complete</li>
+                    <li>Check API key hasn't been revoked in dashboard</li>
+                    <li>Ensure using correct environment (test vs. production keys)</li>
+                    <li>For OAuth tokens, refresh the token if expired</li>
+                    <li>Verify Authorization header format: <code>Authorization: Bearer YOUR_TOKEN</code></li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <section id="integration">
+        <h2>Integration Problems</h2>
+
+        <div class="issue">
+            <h3><span class="severity medium">MEDIUM</span> Salesforce Integration Not Syncing</h3>
+            <p><strong>Symptoms:</strong> Salesforce data not appearing in Northstar after initial setup.</p>
+
+            <div class="solution">
+                <h4>Solution Steps:</h4>
+                <ol>
+                    <li>Check integration status in Settings → Integrations → Salesforce</li>
+                    <li>Verify OAuth connection is still valid (reconnect if expired)</li>
+                    <li>Check sync schedule and last successful sync time</li>
+                    <li>Review field mappings for any errors</li>
+                    <li>Check Salesforce API limits haven't been exceeded</li>
+                </ol>
+                <p><strong>Common Issues:</strong></p>
+                <ul>
+                    <li>Salesforce password reset invalidates OAuth token</li>
+                    <li>Salesforce API version mismatch (we support v55.0+)</li>
+                    <li>Insufficient Salesforce user permissions</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="issue">
+            <h3><span class="severity low">LOW</span> Webhooks Not Triggering</h3>
+            <p><strong>Symptoms:</strong> Configured webhook endpoints not receiving expected events.</p>
+
+            <div class="solution">
+                <h4>Solution Steps:</h4>
+                <ol>
+                    <li>Verify webhook URL is correct and accessible from internet</li>
+                    <li>Check webhook endpoint returns 2xx status code</li>
+                    <li>Ensure endpoint responds within 30 seconds</li>
+                    <li>Review webhook logs in Settings → Webhooks → Logs</li>
+                    <li>Test webhook manually using "Send Test" button</li>
+                </ol>
+                <p><strong>Note:</strong> Webhooks are retried 3 times with exponential backoff (1min, 5min, 30min)</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="billing">
+        <h2>Billing & Account Issues</h2>
+
+        <div class="issue">
+            <h3><span class="severity high">HIGH</span> Account Suspended - Payment Failed</h3>
+            <p><strong>Symptoms:</strong> User cannot access account, sees "Account suspended" message.</p>
+
+            <div class="solution">
+                <h4>Solution Steps:</h4>
+                <ol>
+                    <li>Direct customer to billing portal: <code>app.northstartech.com/billing</code></li>
+                    <li>Update payment method with valid credit card</li>
+                    <li>Process outstanding invoice</li>
+                    <li>Account automatically reactivates within 1 hour of successful payment</li>
+                </ol>
+                <p><strong>Escalation:</strong> For Enterprise customers, contact Finance team directly for invoice-based billing issues.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Escalation Contacts</h2>
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr style="background: #edf2f7;">
+                <th style="padding: 10px; text-align: left;">Issue Type</th>
+                <th style="padding: 10px; text-align: left;">Escalation Path</th>
+            </tr>
+            <tr>
+                <td style="padding: 10px;">Platform Outages</td>
+                <td style="padding: 10px;">#incident-response Slack → On-call Engineer</td>
+            </tr>
+            <tr style="background: #f7fafc;">
+                <td style="padding: 10px;">Security Issues</td>
+                <td style="padding: 10px;">security@northstartech.com → Ryan Hall</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px;">Enterprise Accounts</td>
+                <td style="padding: 10px;">Dedicated CSM → Lisa Anderson</td>
+            </tr>
+            <tr style="background: #f7fafc;">
+                <td style="padding: 10px;">Billing Issues</td>
+                <td style="padding: 10px;">billing@northstartech.com → Daniel White</td>
+            </tr>
+        </table>
+    </section>
+
+    <footer>
+        <hr>
+        <p>&copy; 2023 Northstar Technologies. Internal Support Documentation.</p>
+    </footer>
+</body>
+</html>

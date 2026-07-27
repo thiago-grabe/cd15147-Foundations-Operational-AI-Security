@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Architecture Documentation - Northstar Technologies</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 20px; line-height: 1.6; color: #333; }
+        h1 { color: #232f3e; border-bottom: 3px solid #ff9900; padding-bottom: 10px; }
+        h2 { color: #232f3e; margin-top: 40px; }
+        h3 { color: #545b64; }
+        .aws-service { background: #f1faff; border: 1px solid #0073bb; border-radius: 8px; padding: 15px; margin: 15px 0; }
+        .aws-service h4 { color: #0073bb; margin-top: 0; }
+        .environment { border: 2px solid #ddd; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .environment.prod { border-color: #d13212; }
+        .environment.staging { border-color: #ff9900; }
+        .environment.dev { border-color: #1d8102; }
+        .env-label { display: inline-block; padding: 5px 15px; border-radius: 4px; color: white; font-weight: bold; margin-bottom: 10px; }
+        .prod .env-label { background: #d13212; }
+        .staging .env-label { background: #ff9900; }
+        .dev .env-label { background: #1d8102; }
+        table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #232f3e; color: white; }
+        code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #232f3e; color: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        .warning { background: #fef3cd; border-left: 4px solid #ff9900; padding: 15px; margin: 15px 0; }
+        .diagram { background: #f7f7f7; border: 1px solid #ddd; padding: 20px; margin: 20px 0; font-family: monospace; white-space: pre; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AWS Architecture Documentation</h1>
+        <p><strong>Northstar Technologies Infrastructure Overview</strong></p>
+        <p>Version: 2.1 | Last Updated: June 2023 | Owner: David Kim (DevOps Engineer)</p>
+    </header>
+
+    <section>
+        <h2>Architecture Overview</h2>
+        <p>Northstar Technologies operates a multi-tier, highly available architecture on Amazon Web Services (AWS). Our infrastructure is designed for scalability, reliability, and security, following AWS Well-Architected Framework best practices.</p>
+
+        <div class="diagram">
+                                    ┌─────────────────┐
+                                    │   CloudFront    │
+                                    │      (CDN)      │
+                                    └────────┬────────┘
+                                             │
+                                    ┌────────▼────────┐
+                                    │    AWS WAF      │
+                                    └────────┬────────┘
+                                             │
+                            ┌────────────────┼────────────────┐
+                            │                │                │
+                   ┌────────▼────────┐      │       ┌────────▼────────┐
+                   │  ALB (Web App)  │      │       │   ALB (API)     │
+                   └────────┬────────┘      │       └────────┬────────┘
+                            │               │                │
+              ┌─────────────┼─────────────┐ │   ┌────────────┼────────────┐
+              │             │             │ │   │            │            │
+        ┌─────▼─────┐ ┌─────▼─────┐       │ │   │      ┌─────▼─────┐     │
+        │  EC2 Web  │ │  EC2 Web  │       │ │   │      │  EKS Pod  │     │
+        │  Server 1 │ │  Server 2 │       │ │   │      │  (API)    │     │
+        └───────────┘ └───────────┘       │ │   │      └───────────┘     │
+                                          │ │   │                        │
+                            ┌─────────────┼─┼───┼────────────────────────┤
+                            │             │ │   │                        │
+                   ┌────────▼────────┐    │ │   │    ┌───────────────────▼────┐
+                   │  ElastiCache    │    │ │   │    │     RDS PostgreSQL     │
+                   │    (Redis)      │    │ │   │    │  (Primary + Replica)   │
+                   └─────────────────┘    │ │   │    └────────────────────────┘
+                                          │ │   │
+                            ┌─────────────┼─┴───┼────────────────┐
+                            │             │     │                │
+                   ┌────────▼────────┐   ┌▼─────▼────┐   ┌───────▼───────┐
+                   │   S3 (Assets)   │   │   SQS     │   │  Lambda       │
+                   │                 │   │  (Queue)  │   │  (Workers)    │
+                   └─────────────────┘   └───────────┘   └───────────────┘
+        </div>
+    </section>
+
+    <section>
+        <h2>AWS Regions & Availability</h2>
+        <table>
+            <tr>
+                <th>Region</th>
+                <th>Purpose</th>
+                <th>Services Deployed</th>
+            </tr>
+            <tr>
+                <td><strong>us-east-1</strong> (N. Virginia)</td>
+                <td>Primary Production</td>
+                <td>All services, primary database</td>
+            </tr>
+            <tr>
+                <td><strong>us-west-2</strong> (Oregon)</td>
+                <td>Disaster Recovery / Dev</td>
+                <td>DR replicas, development environment</td>
+            </tr>
+            <tr>
+                <td><strong>eu-west-1</strong> (Ireland)</td>
+                <td>EU Customers (Planned Q4)</td>
+                <td>To be deployed</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>Environment Details</h2>
+
+        <div class="environment prod">
+            <span class="env-label">PRODUCTION</span>
+            <h3>Production Environment</h3>
+            <p><strong>AWS Account ID:</strong> 123456789012</p>
+            <p><strong>Region:</strong> us-east-1</p>
+
+            <h4>Compute Resources</h4>
+            <table>
+                <tr>
+                    <th>Service</th>
+                    <th>Resource</th>
+                    <th>Specification</th>
+                    <th>Count</th>
+                </tr>
+                <tr>
+                    <td>EC2</td>
+                    <td>Web Servers</td>
+                    <td>m5.xlarge (4 vCPU, 16GB RAM)</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>EC2</td>
+                    <td>API Servers</td>
+                    <td>m5.2xlarge (8 vCPU, 32GB RAM)</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>EKS</td>
+                    <td>Kubernetes Cluster</td>
+                    <td>3 m5.large worker nodes</td>
+                    <td>1 cluster</td>
+                </tr>
+                <tr>
+                    <td>Lambda</td>
+                    <td>Auth Handler</td>
+                    <td>1024MB memory, 30s timeout</td>
+                    <td>N/A</td>
+                </tr>
+                <tr>
+                    <td>Lambda</td>
+                    <td>Notification Processor</td>
+                    <td>512MB memory, 60s timeout</td>
+                    <td>N/A</td>
+                </tr>
+            </table>
+
+            <h4>Database & Storage</h4>
+            <table>
+                <tr>
+                    <th>Service</th>
+                    <th>Resource</th>
+                    <th>Specification</th>
+                </tr>
+                <tr>
+                    <td>RDS PostgreSQL</td>
+                    <td>Primary Database</td>
+                    <td>db.r5.2xlarge, 500GB SSD, Multi-AZ</td>
+                </tr>
+                <tr>
+                    <td>RDS PostgreSQL</td>
+                    <td>Read Replica</td>
+                    <td>db.r5.2xlarge, 500GB SSD</td>
+                </tr>
+                <tr>
+                    <td>ElastiCache</td>
+                    <td>Redis Cluster</td>
+                    <td>cache.r5.large, 2 nodes</td>
+                </tr>
+                <tr>
+                    <td>S3</td>
+                    <td>northstar-prod-assets</td>
+                    <td>Standard storage class</td>
+                </tr>
+                <tr>
+                    <td>S3</td>
+                    <td>northstar-prod-backups</td>
+                    <td>Glacier storage class</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="environment staging">
+            <span class="env-label">STAGING</span>
+            <h3>Staging Environment</h3>
+            <p><strong>AWS Account ID:</strong> 234567890123</p>
+            <p><strong>Region:</strong> us-east-1</p>
+
+            <h4>Resources (Scaled Down)</h4>
+            <table>
+                <tr>
+                    <th>Service</th>
+                    <th>Resource</th>
+                    <th>Specification</th>
+                </tr>
+                <tr>
+                    <td>EC2</td>
+                    <td>Web Server</td>
+                    <td>t3.large (2 vCPU, 8GB RAM)</td>
+                </tr>
+                <tr>
+                    <td>RDS PostgreSQL</td>
+                    <td>Database</td>
+                    <td>db.t3.large, 100GB SSD</td>
+                </tr>
+                <tr>
+                    <td>ElastiCache</td>
+                    <td>Redis</td>
+                    <td>cache.t3.medium, 1 node</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="environment dev">
+            <span class="env-label">DEVELOPMENT</span>
+            <h3>Development Environment</h3>
+            <p><strong>AWS Account ID:</strong> 345678901234</p>
+            <p><strong>Region:</strong> us-west-2</p>
+
+            <h4>Resources (Minimal)</h4>
+            <table>
+                <tr>
+                    <th>Service</th>
+                    <th>Resource</th>
+                    <th>Specification</th>
+                </tr>
+                <tr>
+                    <td>EC2</td>
+                    <td>Dev Server</td>
+                    <td>t3.medium (2 vCPU, 4GB RAM)</td>
+                </tr>
+                <tr>
+                    <td>RDS PostgreSQL</td>
+                    <td>Database</td>
+                    <td>db.t3.small, 20GB SSD</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <section>
+        <h2>AWS Services Breakdown</h2>
+
+        <div class="aws-service">
+            <h4>Amazon EC2 (Elastic Compute Cloud)</h4>
+            <p><strong>Purpose:</strong> Hosts our web application servers and API servers.</p>
+            <ul>
+                <li>Auto Scaling Groups configured for automatic capacity management</li>
+                <li>Instances deployed across multiple Availability Zones (us-east-1a, us-east-1b)</li>
+                <li>AMI: Custom Amazon Linux 2 with pre-installed dependencies</li>
+                <li>Instance Profile: northstar-ec2-role (access to S3, CloudWatch, Secrets Manager)</li>
+            </ul>
+        </div>
+
+        <div class="aws-service">
+            <h4>Amazon EKS (Elastic Kubernetes Service)</h4>
+            <p><strong>Purpose:</strong> Runs containerized microservices for API layer.</p>
+            <ul>
+                <li>Kubernetes version: 1.27</li>
+                <li>Node groups: 3 m5.large instances (managed node group)</li>
+                <li>Services: api-gateway, auth-service, data-service, reporting-service</li>
+                <li>Ingress: AWS ALB Ingress Controller</li>
+            </ul>
+        </div>
+
+        <div class="aws-service">
+            <h4>Amazon RDS (Relational Database Service)</h4>
+            <p><strong>Purpose:</strong> Managed PostgreSQL database for application data.</p>
+            <ul>
+                <li>Engine: PostgreSQL 14.7</li>
+                <li>Multi-AZ deployment for high availability</li>
+                <li>Automated backups: 7-day retention</li>
+                <li>Read replica for reporting workloads</li>
+                <li>Parameter group: northstar-pg14-params (optimized for our workload)</li>
+            </ul>
+        </div>
+
+        <div class="aws-service">
+            <h4>Amazon ElastiCache (Redis)</h4>
+            <p><strong>Purpose:</strong> In-memory caching for session management and frequently accessed data.</p>
+            <ul>
+                <li>Engine: Redis 7.0</li>
+                <li>Cluster mode: Disabled (single shard)</li>
+                <li>Use cases: Session storage, API response caching, rate limiting counters</li>
+            </ul>
+        </div>
+
+        <div class="aws-service">
+            <h4>Amazon S3 (Simple Storage Service)</h4>
+            <p><strong>Purpose:</strong> Object storage for assets, backups, and logs.</p>
+            <table>
+                <tr>
+                    <th>Bucket</th>
+                    <th>Purpose</th>
+                    <th>Storage Class</th>
+                    <th>Lifecycle</th>
+                </tr>
+                <tr>
+                    <td>northstar-prod-assets</td>
+                    <td>User uploads, static assets</td>
+                    <td>Standard</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>northstar-prod-backups</td>
+                    <td>Database & system backups</td>
+                    <td>Glacier</td>
+                    <td>90 days to Glacier Deep Archive</td>
+                </tr>
+                <tr>
+                    <td>northstar-application-logs</td>
+                    <td>Application & access logs</td>
+                    <td>Standard-IA</td>
+                    <td>30 days delete</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="aws-service">
+            <h4>Amazon CloudFront</h4>
+            <p><strong>Purpose:</strong> Content delivery network for static assets and web application.</p>
+            <ul>
+                <li>Distribution ID: E1234567890ABC</li>
+                <li>Origins: S3 (assets), ALB (dynamic content)</li>
+                <li>Price Class: PriceClass_100 (North America & Europe)</li>
+                <li>SSL Certificate: ACM certificate for *.northstartech.com</li>
+            </ul>
+        </div>
+
+        <div class="aws-service">
+            <h4>AWS Lambda</h4>
+            <p><strong>Purpose:</strong> Serverless functions for event-driven processing.</p>
+            <table>
+                <tr>
+                    <th>Function</th>
+                    <th>Runtime</th>
+                    <th>Trigger</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>auth-service-handler</td>
+                    <td>Node.js 18.x</td>
+                    <td>API Gateway</td>
+                    <td>Authentication flows</td>
+                </tr>
+                <tr>
+                    <td>notification-processor</td>
+                    <td>Python 3.11</td>
+                    <td>SQS</td>
+                    <td>Send email/SMS/webhooks</td>
+                </tr>
+                <tr>
+                    <td>data-export-worker</td>
+                    <td>Python 3.11</td>
+                    <td>SQS</td>
+                    <td>Async data exports</td>
+                </tr>
+                <tr>
+                    <td>scheduled-report-generator</td>
+                    <td>Python 3.11</td>
+                    <td>EventBridge</td>
+                    <td>Generate scheduled reports</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="aws-service">
+            <h4>Amazon SQS & SNS</h4>
+            <p><strong>Purpose:</strong> Message queuing and notification services.</p>
+            <ul>
+                <li><strong>SQS Queues:</strong>
+                    <ul>
+                        <li>order-processing-queue: Standard queue for order events</li>
+                        <li>notification-queue: Standard queue for outbound notifications</li>
+                        <li>export-queue: Standard queue for data export jobs</li>
+                    </ul>
+                </li>
+                <li><strong>SNS Topics:</strong>
+                    <ul>
+                        <li>system-alerts-topic: Critical alerts → PagerDuty, Slack</li>
+                        <li>deployment-notifications: Deploy events → Slack #deployments</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Security Configuration</h2>
+
+        <div class="warning">
+            <strong>Security Note:</strong> All access to production resources must go through approved channels. Direct SSH access is prohibited. Use AWS Systems Manager Session Manager for instance access.
+        </div>
+
+        <h3>Network Security</h3>
+        <ul>
+            <li><strong>VPC:</strong> Dedicated VPC with public/private subnets across 2 AZs</li>
+            <li><strong>Security Groups:</strong> Least-privilege access, no 0.0.0.0/0 inbound rules</li>
+            <li><strong>NACLs:</strong> Default deny with explicit allow rules</li>
+            <li><strong>AWS WAF:</strong> Rate limiting, SQL injection protection, geo-blocking</li>
+        </ul>
+
+        <h3>IAM Configuration</h3>
+        <ul>
+            <li>Separate IAM roles for each service component</li>
+            <li>Permission boundaries enforced on all roles</li>
+            <li>MFA required for console access</li>
+            <li>No long-lived access keys in production</li>
+        </ul>
+
+        <h3>Data Encryption</h3>
+        <ul>
+            <li><strong>At Rest:</strong> AWS KMS with customer-managed keys</li>
+            <li><strong>In Transit:</strong> TLS 1.3 for all external connections</li>
+            <li><strong>Database:</strong> RDS encryption enabled</li>
+            <li><strong>S3:</strong> Server-side encryption (SSE-KMS)</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Cost Overview</h2>
+        <p><strong>Monthly AWS Spend (Production):</strong> ~$4,200</p>
+        <table>
+            <tr>
+                <th>Service</th>
+                <th>Monthly Cost</th>
+                <th>% of Total</th>
+            </tr>
+            <tr>
+                <td>RDS (Primary + Replica)</td>
+                <td>$1,700</td>
+                <td>40%</td>
+            </tr>
+            <tr>
+                <td>EC2 Instances</td>
+                <td>$720</td>
+                <td>17%</td>
+            </tr>
+            <tr>
+                <td>S3 Storage</td>
+                <td>$660</td>
+                <td>16%</td>
+            </tr>
+            <tr>
+                <td>CloudFront</td>
+                <td>$320</td>
+                <td>8%</td>
+            </tr>
+            <tr>
+                <td>ElastiCache</td>
+                <td>$275</td>
+                <td>7%</td>
+            </tr>
+            <tr>
+                <td>Other (Lambda, SQS, etc.)</td>
+                <td>$525</td>
+                <td>12%</td>
+            </tr>
+        </table>
+    </section>
+
+    <footer>
+        <hr>
+        <p><strong>Document Owner:</strong> David Kim, DevOps Engineer</p>
+        <p><strong>Last Review:</strong> June 15, 2023</p>
+        <p><strong>Next Review:</strong> September 15, 2023</p>
+        <p>&copy; 2023 Northstar Technologies. Confidential - Internal Use Only.</p>
+    </footer>
+</body>
+</html>

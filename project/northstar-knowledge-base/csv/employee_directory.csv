@@ -1,0 +1,26 @@
+employee_id,first_name,last_name,email,department,title,hire_date,manager_id,location,phone_extension
+EMP001,Sarah,Chen,sarah.chen@northstartech.com,Engineering,VP of Engineering,2019-03-15,,Seattle,1001
+EMP002,Marcus,Johnson,marcus.johnson@northstartech.com,Engineering,Senior Software Engineer,2020-06-01,EMP001,Seattle,1002
+EMP003,Priya,Sharma,priya.sharma@northstartech.com,Engineering,Software Engineer,2021-09-12,EMP001,Seattle,1003
+EMP004,David,Kim,david.kim@northstartech.com,Engineering,DevOps Engineer,2020-11-30,EMP001,Seattle,1004
+EMP005,Jennifer,Williams,jennifer.williams@northstartech.com,Product,VP of Product,2019-05-20,,Austin,2001
+EMP006,Michael,Brown,michael.brown@northstartech.com,Product,Product Manager,2021-02-14,EMP005,Austin,2002
+EMP007,Emily,Davis,emily.davis@northstartech.com,Product,Product Designer,2022-01-10,EMP005,Austin,2003
+EMP008,Robert,Martinez,robert.martinez@northstartech.com,Sales,VP of Sales,2019-08-01,,New York,3001
+EMP009,Amanda,Thompson,amanda.thompson@northstartech.com,Sales,Account Executive,2021-04-18,EMP008,New York,3002
+EMP010,James,Garcia,james.garcia@northstartech.com,Sales,Sales Development Rep,2022-07-25,EMP008,New York,3003
+EMP011,Lisa,Anderson,lisa.anderson@northstartech.com,Customer Success,Director of Customer Success,2020-01-06,,Austin,4001
+EMP012,Kevin,Wilson,kevin.wilson@northstartech.com,Customer Success,Customer Success Manager,2021-08-09,EMP011,Austin,4002
+EMP013,Rachel,Taylor,rachel.taylor@northstartech.com,HR,VP of People,2019-04-01,,Seattle,5001
+EMP014,Christopher,Moore,christopher.moore@northstartech.com,HR,HR Business Partner,2021-03-22,EMP013,Seattle,5002
+EMP015,Stephanie,Jackson,stephanie.jackson@northstartech.com,Finance,CFO,2019-02-11,,Seattle,6001
+EMP016,Daniel,White,daniel.white@northstartech.com,Finance,Financial Analyst,2022-05-16,EMP015,Seattle,6002
+EMP017,Nicole,Harris,nicole.harris@northstartech.com,Marketing,VP of Marketing,2020-04-13,,New York,7001
+EMP018,Brian,Clark,brian.clark@northstartech.com,Marketing,Content Marketing Manager,2021-11-01,EMP017,New York,7002
+EMP019,Michelle,Lewis,michelle.lewis@northstartech.com,Engineering,QA Engineer,2021-06-28,EMP001,Seattle,1005
+EMP020,Andrew,Robinson,andrew.robinson@northstartech.com,Engineering,Frontend Engineer,2022-03-07,EMP001,Remote,1006
+EMP021,Jessica,Walker,jessica.walker@northstartech.com,Engineering,Backend Engineer,2020-09-14,EMP001,Seattle,1007
+EMP022,Ryan,Hall,ryan.hall@northstartech.com,Engineering,Security Engineer,2021-01-25,EMP001,Seattle,1008
+EMP023,Laura,Allen,laura.allen@northstartech.com,Legal,General Counsel,2020-07-06,,Seattle,8001
+EMP024,Thomas,Young,thomas.young@northstartech.com,IT,IT Manager,2020-02-17,,Austin,9001
+EMP025,Megan,King,megan.king@northstartech.com,IT,Systems Administrator,2021-10-04,EMP024,Austin,9002

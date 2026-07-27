@@ -1,0 +1,16 @@
+account_id,company_name,industry,plan_tier,monthly_revenue,contract_start,contract_end,primary_contact,contact_email,account_manager,status,aws_region
+CUST001,Meridian Healthcare Systems,Healthcare,Enterprise,15000,2022-01-15,2025-01-14,John Patterson,j.patterson@meridianhcs.com,Amanda Thompson,Active,us-east-1
+CUST002,Velocity Financial Group,Finance,Enterprise,22000,2021-06-01,2024-05-31,Sandra Mitchell,s.mitchell@velocityfg.com,Amanda Thompson,Active,us-east-1
+CUST003,GreenLeaf Agriculture,Agriculture,Professional,4500,2022-09-01,2023-08-31,Mark Stevens,m.stevens@greenleafag.com,Kevin Wilson,Active,us-west-2
+CUST004,TechStart Innovations,Technology,Starter,500,2023-03-15,2024-03-14,Amy Rodriguez,a.rodriguez@techstart.io,Kevin Wilson,Active,us-west-2
+CUST005,Pacific Retail Solutions,Retail,Professional,6000,2022-04-01,2025-03-31,David Chen,d.chen@pacificretail.com,Amanda Thompson,Active,us-west-2
+CUST006,Summit Education Partners,Education,Professional,3500,2022-11-01,2023-10-31,Lisa Monroe,l.monroe@summitedu.org,Kevin Wilson,Churned,us-east-1
+CUST007,Atlas Manufacturing Co,Manufacturing,Enterprise,18000,2021-08-15,2024-08-14,Robert Franklin,r.franklin@atlasmfg.com,Amanda Thompson,Active,us-east-1
+CUST008,Horizon Media Group,Media,Professional,5500,2023-01-01,2024-12-31,Jennifer Walsh,j.walsh@horizonmedia.com,Kevin Wilson,Active,us-west-2
+CUST009,Cascade Logistics,Logistics,Enterprise,12000,2022-02-01,2025-01-31,Michael Torres,m.torres@cascadelog.com,Amanda Thompson,Active,us-east-1
+CUST010,Bright Future Insurance,Insurance,Enterprise,25000,2021-04-01,2024-03-31,Karen Phillips,k.phillips@brightfuture.com,Amanda Thompson,Active,us-east-1
+CUST011,Urban Development Corp,Real Estate,Professional,4000,2022-07-15,2023-07-14,Steven Grant,s.grant@urbandev.com,Kevin Wilson,Active,us-west-2
+CUST012,Nova Pharmaceuticals,Healthcare,Enterprise,30000,2021-01-01,2024-12-31,Dr. Elizabeth Hart,e.hart@novapharma.com,Amanda Thompson,Active,us-east-1
+CUST013,Apex Sports Management,Entertainment,Starter,750,2023-05-01,2024-04-30,Tony Richards,t.richards@apexsports.com,Kevin Wilson,Active,us-west-2
+CUST014,Silverline Banking,Finance,Enterprise,28000,2020-10-01,2023-09-30,Margaret O'Brien,m.obrien@silverlinebank.com,Amanda Thompson,Active,us-east-1
+CUST015,EcoTech Solutions,Energy,Professional,7500,2022-08-01,2025-07-31,James Nakamura,j.nakamura@ecotechsol.com,Kevin Wilson,Active,us-west-2

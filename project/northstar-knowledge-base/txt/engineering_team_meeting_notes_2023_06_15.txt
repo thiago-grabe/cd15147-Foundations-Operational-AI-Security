@@ -1,0 +1,117 @@
+NORTHSTAR TECHNOLOGIES
+Engineering Team Meeting Notes
+Date: June 15, 2023
+Time: 10:00 AM - 11:00 AM PST
+Location: Conference Room A / Zoom
+
+ATTENDEES:
+- Sarah Chen (VP of Engineering) - Meeting Lead
+- Marcus Johnson (Senior Software Engineer)
+- Priya Sharma (Software Engineer)
+- David Kim (DevOps Engineer)
+- Jessica Walker (Backend Engineer)
+- Ryan Hall (Security Engineer)
+- Michelle Lewis (QA Engineer)
+- Andrew Robinson (Frontend Engineer) - Remote
+
+AGENDA:
+1. Sprint Review
+2. Q3 Roadmap Discussion
+3. Infrastructure Updates
+4. Security Compliance Update
+5. Open Discussion
+
+---
+
+1. SPRINT REVIEW (Marcus Johnson)
+
+Completed this sprint:
+- User authentication flow redesign (AUTH-234) - Shipped to production
+- API rate limiting implementation (API-567) - In staging
+- Dashboard performance optimization (PERF-123) - 40% improvement in load times
+- Mobile responsive fixes for analytics module (UI-890) - Ready for QA
+
+Carried over to next sprint:
+- Webhook retry mechanism (API-589) - Blocked by third-party API documentation
+- Bulk data export feature (DATA-445) - Needs additional security review
+
+Sprint velocity: 47 story points (target was 45)
+
+---
+
+2. Q3 ROADMAP DISCUSSION (Sarah Chen)
+
+Key initiatives for Q3:
+a) Migration to EKS (Kubernetes) for improved scalability
+   - Target completion: End of August
+   - Lead: David Kim
+   - Dependencies: Security review, cost analysis
+
+b) Real-time collaboration features
+   - Target completion: September
+   - Lead: Jessica Walker
+   - Requires WebSocket infrastructure
+
+c) Advanced reporting and analytics v2
+   - Target completion: End of Q3
+   - Lead: Marcus Johnson
+   - Coordination needed with Product team
+
+ACTION ITEM: Sarah to schedule individual roadmap planning sessions with each lead.
+
+---
+
+3. INFRASTRUCTURE UPDATES (David Kim)
+
+Current AWS infrastructure status:
+- Production environment running smoothly
+- Recent RDS upgrade completed successfully (db.r5.large to db.r5.2xlarge)
+- Monthly AWS costs: approximately $4,200
+- Upcoming: ElastiCache cluster upgrade scheduled for June 20th (maintenance window: 2 AM - 4 AM PST)
+
+Cost optimization opportunities identified:
+- Reserved instances for production EC2s could save ~30%
+- S3 lifecycle policies for log retention
+- Consider Spot instances for staging environment
+
+ACTION ITEM: David to prepare cost optimization proposal for leadership review.
+
+---
+
+4. SECURITY COMPLIANCE UPDATE (Ryan Hall)
+
+SOC 2 Type II audit progress:
+- Evidence collection: 85% complete
+- Pending items: Access review documentation, incident response testing
+- Auditor on-site visit scheduled for July 10-12
+
+Recent security improvements:
+- Implemented AWS WAF rules for API endpoints
+- Completed penetration testing (no critical findings)
+- Enhanced logging for audit trail requirements
+
+Upcoming:
+- HIPAA compliance assessment for healthcare customers (Q3)
+- Annual security awareness training rollout
+
+ACTION ITEM: All team members to complete security awareness training by June 30th.
+
+---
+
+5. OPEN DISCUSSION
+
+- Michelle raised concern about test coverage for new authentication module
+  Resolution: Schedule dedicated QA session for next Tuesday
+
+- Andrew requested additional frontend tooling budget for design system
+  Resolution: Sarah to discuss with Finance
+
+- Discussion about on-call rotation improvements
+  Resolution: David to propose new rotation schedule that balances workload
+
+---
+
+NEXT MEETING: June 22, 2023 at 10:00 AM PST
+
+Meeting notes prepared by: Sarah Chen
+Distribution: Engineering Team, Product Team Leadership

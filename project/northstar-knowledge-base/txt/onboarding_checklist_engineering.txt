@@ -1,0 +1,166 @@
+NORTHSTAR TECHNOLOGIES
+NEW ENGINEER ONBOARDING CHECKLIST
+
+Welcome to Northstar Technologies! This checklist will guide you through your
+first two weeks. Please complete items in order and check off each task as you
+finish it.
+
+================================================================================
+DAY 1: GETTING STARTED
+================================================================================
+
+IT & Access Setup:
+[ ] Receive laptop and equipment from IT (contact: Thomas Young, IT Manager)
+[ ] Set up corporate email (firstname.lastname@northstartech.com)
+[ ] Configure multi-factor authentication (MFA) using Okta Verify app
+[ ] Complete security awareness training module in Workday Learning
+[ ] Sign acceptable use policy and NDA documents in DocuSign
+
+Account Access Requests (submit via IT Portal):
+[ ] GitHub Enterprise access - request from your manager
+[ ] AWS Console access - request from David Kim (DevOps)
+[ ] Jira project access - request from your team lead
+[ ] Confluence wiki access - automatic with email setup
+[ ] Slack workspace - invitation sent to corporate email
+[ ] DataDog monitoring access - request from David Kim
+[ ] PagerDuty access (for on-call rotation) - request from Sarah Chen
+
+Communication Setup:
+[ ] Join Slack and introduce yourself in #engineering-general
+[ ] Join team-specific Slack channels:
+    - #engineering-general
+    - #engineering-alerts
+    - #deployments
+    - #incident-response
+    - #random
+[ ] Schedule 1:1 with your direct manager
+[ ] Add your info to the Engineering Team directory in Confluence
+
+================================================================================
+DAY 2-3: ENVIRONMENT SETUP
+================================================================================
+
+Development Environment:
+[ ] Clone main repositories from GitHub Enterprise
+    - northstar-api (backend services)
+    - northstar-web (frontend application)
+    - northstar-infrastructure (Terraform configs)
+    - northstar-docs (documentation)
+[ ] Install required software (see confluence page: Engineering/Dev Setup)
+    - Node.js v18.x
+    - Python 3.11+
+    - Docker Desktop
+    - AWS CLI v2
+    - Terraform v1.4+
+    - kubectl
+[ ] Configure local development environment
+    - Copy .env.example to .env.local
+    - Request development AWS credentials from David Kim
+    - Set up local database using Docker Compose
+[ ] Run application locally and verify all services start
+[ ] Run test suite and verify all tests pass
+
+AWS Environment Orientation:
+[ ] Review AWS account structure document in Confluence
+[ ] Familiarize yourself with our AWS regions (us-east-1 primary, us-west-2 DR)
+[ ] Understand environment tiers: dev, staging, production
+[ ] Review IAM roles and permission boundaries
+[ ] Complete AWS console walkthrough with David Kim
+
+================================================================================
+DAY 4-5: CODEBASE ORIENTATION
+================================================================================
+
+Architecture Overview:
+[ ] Read system architecture documentation in Confluence
+[ ] Review API design guidelines document
+[ ] Understand our microservices architecture:
+    - auth-service: Authentication and authorization
+    - api-gateway: Request routing and rate limiting
+    - data-service: Core data operations
+    - reporting-service: Analytics and reporting
+    - notification-service: Email, SMS, webhook delivery
+[ ] Review database schema documentation
+[ ] Understand our event-driven architecture (SQS, SNS)
+
+Code Review:
+[ ] Review recent pull requests to understand coding standards
+[ ] Read through our coding style guide in Confluence
+[ ] Understand our PR review process and approval requirements
+[ ] Set up code review notifications in GitHub
+
+================================================================================
+WEEK 2: DEEPER DIVE
+================================================================================
+
+First Contributions:
+[ ] Pick up your first ticket (labeled "good-first-issue" in Jira)
+[ ] Submit your first pull request
+[ ] Participate in at least one code review
+[ ] Attend sprint planning meeting
+[ ] Attend engineering team meeting (Thursdays 10 AM)
+
+Process & Workflows:
+[ ] Understand our CI/CD pipeline (GitHub Actions -> AWS)
+[ ] Review deployment process and rollback procedures
+[ ] Learn our incident response process
+[ ] Understand on-call responsibilities (rotation starts after 30 days)
+[ ] Review our SLA commitments and monitoring dashboards
+
+Meet the Team:
+[ ] Schedule 1:1s with team members
+[ ] Shadow a customer support escalation call
+[ ] Attend a customer success team meeting (optional but encouraged)
+[ ] Meet with product manager to understand roadmap
+
+Security & Compliance:
+[ ] Review security best practices document
+[ ] Understand our data handling policies
+[ ] Learn about our SOC 2 compliance requirements
+[ ] Complete secure coding training module
+
+================================================================================
+30-DAY CHECK-IN
+================================================================================
+
+By end of 30 days:
+[ ] Complete all onboarding tasks above
+[ ] Deliver at least 3 pull requests to production
+[ ] Complete on-call shadow rotation (1 week)
+[ ] Schedule 30-day check-in with manager
+[ ] Provide feedback on onboarding process
+
+================================================================================
+KEY CONTACTS
+================================================================================
+
+Your Manager:          [To be assigned]
+Engineering VP:        Sarah Chen (sarah.chen@northstartech.com)
+DevOps Lead:          David Kim (david.kim@northstartech.com)
+IT Manager:           Thomas Young (thomas.young@northstartech.com)
+HR Business Partner:   Christopher Moore (christopher.moore@northstartech.com)
+Security Engineer:     Ryan Hall (ryan.hall@northstartech.com)
+
+================================================================================
+HELPFUL RESOURCES
+================================================================================
+
+Internal:
+- Confluence Wiki: confluence.northstartech.com
+- IT Support Portal: support.northstartech.com/it
+- Engineering Handbook: confluence.northstartech.com/eng/handbook
+- Architecture Diagrams: confluence.northstartech.com/eng/architecture
+
+External Documentation:
+- AWS Documentation: docs.aws.amazon.com
+- Our Public API Docs: docs.northstartech.com/api
+- Status Page: status.northstartech.com
+
+================================================================================
+
+Questions? Reach out to your manager or post in #engineering-general on Slack.
+
+Welcome to the team!
+
+Last updated: June 2023
+Document owner: Sarah Chen, VP of Engineering

@@ -1,3 +1,60 @@
-.DS_Store
-.vscode
+# ---------------------------------------------------------------------------
+# Secrets and credentials
+# Nothing in this repo should ever contain live AWS credentials. Students work
+# in temporary AWS accounts and may fork this repo; these patterns keep keys
+# out of version control. Note that .env.example IS tracked on purpose.
+# ---------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+credentials
+.aws/
+*.pem
+*.key
+.streamlit/secrets.toml
 
+# ---------------------------------------------------------------------------
+# macOS
+# ---------------------------------------------------------------------------
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# ---------------------------------------------------------------------------
+# Microsoft Office lock/temp files
+# Word and Excel create these whenever a .docx/.xlsx is open. This repo ships
+# templates and knowledge-base documents in both formats, so these show up
+# constantly during authoring.
+# ---------------------------------------------------------------------------
+~$*.docx
+~$*.doc
+~$*.xlsx
+~$*.xls
+~$*.pptx
+~$*.ppt
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# ---------------------------------------------------------------------------
+# Editors and IDEs
+# ---------------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+
+# ---------------------------------------------------------------------------
+# Logs and local scratch
+# ---------------------------------------------------------------------------
+*.log
+.cache/
+tmp/

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Features Overview - Northstar Technologies</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 20px; line-height: 1.6; color: #333; }
+        h1 { color: #1a365d; border-bottom: 3px solid #3182ce; padding-bottom: 10px; }
+        h2 { color: #2c5282; margin-top: 40px; }
+        h3 { color: #2b6cb0; }
+        .feature-card { background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin: 15px 0; }
+        .feature-card h3 { margin-top: 0; }
+        .tier-badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-left: 10px; }
+        .starter { background: #c6f6d5; color: #22543d; }
+        .professional { background: #bee3f8; color: #2a4365; }
+        .enterprise { background: #e9d8fd; color: #44337a; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .comparison-table th, .comparison-table td { border: 1px solid #e2e8f0; padding: 12px; text-align: center; }
+        .comparison-table th { background: #2c5282; color: white; }
+        .comparison-table tr:nth-child(even) { background: #f7fafc; }
+        .check { color: #38a169; font-weight: bold; }
+        .cross { color: #e53e3e; }
+        ul { padding-left: 20px; }
+        li { margin: 8px 0; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Northstar Platform Features</h1>
+        <p><strong>Complete Product Overview</strong> | Internal Sales & Customer Success Reference</p>
+        <p>Version 2.5 | Updated: June 2023</p>
+    </header>
+
+    <section>
+        <h2>Platform Overview</h2>
+        <p>Northstar Technologies provides a comprehensive SaaS platform designed to help businesses manage, analyze, and act on their data. Our platform runs entirely on AWS infrastructure, ensuring enterprise-grade security, scalability, and reliability.</p>
+
+        <div class="feature-card">
+            <h3>Core Value Proposition</h3>
+            <ul>
+                <li><strong>Unified Data Platform:</strong> Consolidate data from multiple sources into a single view</li>
+                <li><strong>Real-time Analytics:</strong> Make decisions based on up-to-the-minute insights</li>
+                <li><strong>Automation:</strong> Reduce manual work with intelligent workflows</li>
+                <li><strong>Enterprise Security:</strong> SOC 2 Type II certified with optional HIPAA compliance</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Feature Categories</h2>
+
+        <h3>Data Management</h3>
+        <div class="feature-card">
+            <h3>Data Import & Integration <span class="tier-badge starter">Starter</span></h3>
+            <ul>
+                <li>CSV, JSON, and Excel file uploads</li>
+                <li>REST API for programmatic data ingestion</li>
+                <li>Pre-built connectors for 50+ data sources (Salesforce, HubSpot, Google Analytics, etc.)</li>
+                <li>Real-time webhook ingestion</li>
+                <li>Scheduled data sync (hourly, daily, weekly)</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Data Transformation <span class="tier-badge professional">Professional</span></h3>
+            <ul>
+                <li>Visual data transformation pipeline builder</li>
+                <li>SQL query interface for advanced users</li>
+                <li>Calculated fields and custom metrics</li>
+                <li>Data validation and cleansing rules</li>
+                <li>Historical data versioning</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Data Export <span class="tier-badge starter">Starter</span></h3>
+            <ul>
+                <li>Export to CSV, JSON, Excel, and Parquet formats</li>
+                <li>Scheduled recurring exports</li>
+                <li>Direct export to AWS S3 (Professional+)</li>
+                <li>API access for programmatic export</li>
+            </ul>
+        </div>
+
+        <h3>Analytics & Reporting</h3>
+        <div class="feature-card">
+            <h3>Dashboard Builder <span class="tier-badge starter">Starter</span></h3>
+            <ul>
+                <li>Drag-and-drop dashboard creation</li>
+                <li>20+ visualization types (charts, graphs, tables, maps)</li>
+                <li>Real-time data refresh</li>
+                <li>Mobile-responsive dashboards</li>
+                <li>Dashboard templates for common use cases</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Advanced Analytics <span class="tier-badge professional">Professional</span></h3>
+            <ul>
+                <li>Cohort analysis and segmentation</li>
+                <li>Funnel visualization</li>
+                <li>Trend detection and forecasting</li>
+                <li>Custom date range comparisons</li>
+                <li>Drill-down capabilities</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Report Scheduling <span class="tier-badge professional">Professional</span></h3>
+            <ul>
+                <li>Automated report delivery via email</li>
+                <li>PDF and Excel report formats</li>
+                <li>Customizable delivery schedules</li>
+                <li>Distribution lists for team reporting</li>
+            </ul>
+        </div>
+
+        <h3>Collaboration</h3>
+        <div class="feature-card">
+            <h3>Team Workspaces <span class="tier-badge starter">Starter</span></h3>
+            <ul>
+                <li>Shared dashboards and reports</li>
+                <li>Comments and annotations</li>
+                <li>Activity feed for team updates</li>
+                <li>@mentions for team communication</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Real-time Collaboration <span class="tier-badge enterprise">Enterprise</span></h3>
+            <ul>
+                <li>Simultaneous multi-user editing</li>
+                <li>Live cursor tracking</li>
+                <li>Presence indicators</li>
+                <li>Automatic conflict resolution</li>
+            </ul>
+        </div>
+
+        <h3>Alerting & Automation</h3>
+        <div class="feature-card">
+            <h3>Alerts & Notifications <span class="tier-badge professional">Professional</span></h3>
+            <ul>
+                <li>Threshold-based alerting</li>
+                <li>Multi-condition alert rules</li>
+                <li>Email, Slack, and PagerDuty notifications</li>
+                <li>Escalation policies</li>
+                <li>Alert history and audit trail</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Workflow Automation <span class="tier-badge enterprise">Enterprise</span></h3>
+            <ul>
+                <li>Visual workflow builder</li>
+                <li>Trigger-based automation</li>
+                <li>Integration with external systems via webhooks</li>
+                <li>Approval workflows</li>
+                <li>Scheduled workflow execution</li>
+            </ul>
+        </div>
+
+        <h3>Security & Compliance</h3>
+        <div class="feature-card">
+            <h3>Access Control <span class="tier-badge starter">Starter</span></h3>
+            <ul>
+                <li>Role-based access control (RBAC)</li>
+                <li>Team and project permissions</li>
+                <li>Single Sign-On (SSO) via SAML 2.0 (Enterprise)</li>
+                <li>Two-factor authentication (2FA)</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3>Enterprise Security <span class="tier-badge enterprise">Enterprise</span></h3>
+            <ul>
+                <li>IP allowlisting</li>
+                <li>Custom session timeout policies</li>
+                <li>Advanced audit logging</li>
+                <li>Data encryption at rest and in transit</li>
+                <li>SOC 2 Type II certified</li>
+                <li>HIPAA compliance available</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Plan Comparison</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Starter<br>$49/user/mo</th>
+                    <th>Professional<br>$99/user/mo</th>
+                    <th>Enterprise<br>Custom</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Users</td>
+                    <td>Up to 5</td>
+                    <td>Up to 50</td>
+                    <td>Unlimited</td>
+                </tr>
+                <tr>
+                    <td>Data Storage</td>
+                    <td>10 GB</td>
+                    <td>100 GB</td>
+                    <td>Unlimited</td>
+                </tr>
+                <tr>
+                    <td>API Requests/month</td>
+                    <td>10,000</td>
+                    <td>100,000</td>
+                    <td>Unlimited</td>
+                </tr>
+                <tr>
+                    <td>Dashboards</td>
+                    <td>10</td>
+                    <td>Unlimited</td>
+                    <td>Unlimited</td>
+                </tr>
+                <tr>
+                    <td>Data Connectors</td>
+                    <td>5</td>
+                    <td>25</td>
+                    <td>All (50+)</td>
+                </tr>
+                <tr>
+                    <td>Scheduled Reports</td>
+                    <td class="cross">✗</td>
+                    <td class="check">✓</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td>Advanced Analytics</td>
+                    <td class="cross">✗</td>
+                    <td class="check">✓</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td>Custom Alerts</td>
+                    <td class="cross">✗</td>
+                    <td class="check">✓</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td>SSO (SAML)</td>
+                    <td class="cross">✗</td>
+                    <td class="cross">✗</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td>Real-time Collaboration</td>
+                    <td class="cross">✗</td>
+                    <td class="cross">✗</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td>HIPAA Compliance</td>
+                    <td class="cross">✗</td>
+                    <td class="cross">✗</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td>Dedicated Support</td>
+                    <td>Email</td>
+                    <td>Email + Chat</td>
+                    <td>24/7 + CSM</td>
+                </tr>
+                <tr>
+                    <td>SLA</td>
+                    <td>99.5%</td>
+                    <td>99.9%</td>
+                    <td>99.99%</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>AWS Infrastructure</h2>
+        <p>Our platform is built entirely on AWS, leveraging the following services:</p>
+        <ul>
+            <li><strong>Compute:</strong> Amazon EC2, AWS Lambda, Amazon EKS</li>
+            <li><strong>Storage:</strong> Amazon S3, Amazon RDS (PostgreSQL)</li>
+            <li><strong>Caching:</strong> Amazon ElastiCache (Redis)</li>
+            <li><strong>CDN:</strong> Amazon CloudFront</li>
+            <li><strong>Security:</strong> AWS WAF, AWS Shield, AWS KMS</li>
+            <li><strong>Monitoring:</strong> Amazon CloudWatch, AWS X-Ray</li>
+        </ul>
+        <p><strong>Regions Available:</strong> US East (N. Virginia), US West (Oregon), EU (Frankfurt), Asia Pacific (Singapore)</p>
+    </section>
+
+    <footer>
+        <hr>
+        <p><strong>Questions?</strong> Contact Product Team: <a href="mailto:product@northstartech.com">product@northstartech.com</a></p>
+        <p>&copy; 2023 Northstar Technologies. Internal Use Only.</p>
+    </footer>
+</body>
+</html>

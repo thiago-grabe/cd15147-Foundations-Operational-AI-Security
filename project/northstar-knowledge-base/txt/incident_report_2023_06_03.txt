@@ -1,0 +1,160 @@
+NORTHSTAR TECHNOLOGIES
+INCIDENT REPORT
+
+================================================================================
+INCIDENT SUMMARY
+================================================================================
+
+Incident ID:        INC-2023-0042
+Severity:           P1 (Critical)
+Status:             Resolved
+Duration:           2 hours 15 minutes
+
+Start Time:         June 3, 2023, 08:45 AM PST
+End Time:           June 3, 2023, 11:00 AM PST
+Detection Time:     June 3, 2023, 08:52 AM PST (7 minutes after start)
+
+Incident Commander: Sarah Chen
+Primary Responders: David Kim, Jessica Walker, Marcus Johnson
+
+================================================================================
+IMPACT
+================================================================================
+
+Services Affected:
+- Production API (api.northstartech.com)
+- Customer Dashboard (app.northstartech.com)
+- Webhook Delivery System
+
+Customer Impact:
+- 100% of API requests returning 500 errors during peak incident
+- Approximately 2,400 customers affected
+- 847 support tickets created during incident window
+- Estimated 15,000 failed API calls
+
+Business Impact:
+- SLA breach for 3 Enterprise customers (Meridian Healthcare, Atlas Manufacturing,
+  Bright Future Insurance)
+- Webhook deliveries delayed by up to 3 hours
+- Customer trust impact requiring executive communication
+
+================================================================================
+TIMELINE
+================================================================================
+
+08:45 AM - Database connection pool exhaustion begins
+08:47 AM - First 500 errors appear in API logs
+08:52 AM - DataDog alerts trigger, on-call engineer (David Kim) paged
+08:55 AM - David acknowledges alert, begins investigation
+09:00 AM - Sarah Chen (VP Engineering) joined incident channel
+09:05 AM - Root cause identified: runaway query from new reporting feature
+09:10 AM - Decision made to kill problematic queries and restart API servers
+09:15 AM - Jessica Walker begins rolling restart of API servers
+09:20 AM - Marcus Johnson patches reporting code to prevent recurrence
+09:30 AM - 50% of API servers back online, partial service restoration
+09:45 AM - All API servers restarted, connection pools recovering
+10:00 AM - Database connections normalized, API fully operational
+10:15 AM - Monitoring confirms stable operation
+10:30 AM - Webhook backlog processing begins
+11:00 AM - All systems confirmed operational, incident declared resolved
+
+================================================================================
+ROOT CAUSE ANALYSIS
+================================================================================
+
+Primary Cause:
+A new report generation feature deployed in v2.4.8 contained a query that
+performed a full table scan on the events table (approximately 500M rows) when
+generating custom date range reports. This query was triggered by a customer
+(Atlas Manufacturing) at 08:45 AM, consuming all available database connections.
+
+Contributing Factors:
+1. The problematic query was not caught in code review due to insufficient
+   test data in staging environment
+2. No query timeout was configured for the reporting module
+3. Database connection pool monitoring alerts were set too high (95% threshold)
+4. The feature was deployed on Friday afternoon without proper monitoring coverage
+
+Technical Details:
+- Affected query: SELECT * FROM events WHERE customer_id = ? AND created_at
+  BETWEEN ? AND ? ORDER BY created_at
+- Missing index on (customer_id, created_at) compound key
+- Query execution time: 45+ minutes before killed
+- Connection pool size: 100 connections (all consumed)
+
+================================================================================
+REMEDIATION ACTIONS
+================================================================================
+
+Immediate (Completed):
+[x] Killed runaway database queries
+[x] Restarted API servers with fresh connection pools
+[x] Deployed hotfix to add query timeout (30 second limit)
+[x] Added compound index to events table
+[x] Sent customer communication regarding incident
+
+Short-term (In Progress):
+[ ] Add database connection pool metrics to primary dashboard
+[ ] Lower connection pool alert threshold to 80%
+[ ] Review all reporting queries for optimization
+[ ] Add query explain plan analysis to CI/CD pipeline
+
+Long-term (Planned):
+[ ] Implement query governor to prevent resource-intensive queries
+[ ] Create dedicated read replica for reporting workloads
+[ ] Establish staging environment with production-scale data sampling
+[ ] Review and update incident response runbook
+
+================================================================================
+CUSTOMER COMMUNICATION
+================================================================================
+
+10:30 AM - Status page updated with incident notice
+11:15 AM - Email sent to affected Enterprise customers with detailed explanation
+11:30 AM - Public post-mortem summary published to status page
+06/05/23 - Follow-up calls completed with all affected Enterprise customers
+
+================================================================================
+LESSONS LEARNED
+================================================================================
+
+What went well:
+- Fast detection time (7 minutes)
+- Clear incident command structure
+- Effective cross-team collaboration
+- Transparent customer communication
+
+What needs improvement:
+- Pre-deployment query analysis for new features
+- Staging environment data volume
+- Connection pool monitoring thresholds
+- Friday deployment freeze policy
+
+================================================================================
+FOLLOW-UP ACTIONS
+================================================================================
+
+Owner: David Kim
+Due Date: June 10, 2023
+- Implement query timeout for all database operations
+
+Owner: Marcus Johnson
+Due Date: June 15, 2023
+- Audit all reporting module queries for performance
+
+Owner: Sarah Chen
+Due Date: June 20, 2023
+- Establish Friday deployment freeze policy
+- Update incident response runbook
+
+Owner: Ryan Hall
+Due Date: June 30, 2023
+- Review and update monitoring alert thresholds
+
+================================================================================
+
+Report prepared by: Sarah Chen, VP of Engineering
+Review completed by: Jennifer Williams, VP of Product
+Date: June 5, 2023
+
+Distribution: Engineering Team, Product Team, Customer Success, Executive Team
