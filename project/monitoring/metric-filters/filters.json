@@ -1,0 +1,49 @@
+{
+    "metricFilters": [
+        {
+            "filterName": "GuardrailInterventions",
+            "filterPattern": "\"BLOCKED\"",
+            "metricTransformations": [
+                {
+                    "metricName": "GuardrailInterventions",
+                    "metricNamespace": "NorthstarAssist",
+                    "metricValue": "1",
+                    "defaultValue": 0.0
+                }
+            ],
+            "creationTime": 1787609187835,
+            "logGroupName": "/aws/bedrock/northstar-assist",
+            "applyOnTransformedLogs": false
+        },
+        {
+            "filterName": "PromptAttackInterventions",
+            "filterPattern": "\"PROMPT_ATTACK\"",
+            "metricTransformations": [
+                {
+                    "metricName": "PromptAttackInterventions",
+                    "metricNamespace": "NorthstarAssist",
+                    "metricValue": "1",
+                    "defaultValue": 0.0
+                }
+            ],
+            "creationTime": 1787609189078,
+            "logGroupName": "/aws/bedrock/northstar-assist",
+            "applyOnTransformedLogs": false
+        },
+        {
+            "filterName": "UngroundedResponses",
+            "filterPattern": "\"GROUNDING\"",
+            "metricTransformations": [
+                {
+                    "metricName": "UngroundedResponses",
+                    "metricNamespace": "NorthstarAssist",
+                    "metricValue": "1",
+                    "defaultValue": 0.0
+                }
+            ],
+            "creationTime": 1787609225324,
+            "logGroupName": "/aws/bedrock/northstar-assist",
+            "applyOnTransformedLogs": false
+        }
+    ]
+}
