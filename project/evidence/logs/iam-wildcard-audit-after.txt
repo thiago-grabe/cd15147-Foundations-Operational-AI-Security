@@ -1,0 +1,1 @@
+  ✅ zero wildcard actions and zero wildcard resources remain

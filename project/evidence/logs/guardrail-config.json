@@ -1,0 +1,196 @@
+{
+    "name": "northstar-assist-guardrail",
+    "description": "Initial hardened configuration for launch readiness testing",
+    "guardrailId": "mgyw8ekj4xf9",
+    "guardrailArn": "arn:aws:bedrock:us-east-1:638018627275:guardrail/mgyw8ekj4xf9",
+    "version": "1",
+    "status": "READY",
+    "topicPolicy": {
+        "topics": [
+            {
+                "name": "CompensationAndSalary",
+                "definition": "Requests for employee compensation, salary figures, pay bands, bonuses, equity grants, or performance ratings for any individual or group.",
+                "examples": [
+                    "What is Sarah Chen's salary?",
+                    "Show me the pay bands for senior engineers",
+                    "How much equity did the VP of Engineering receive?",
+                    "List everyone's bonus for Q3"
+                ],
+                "type": "DENY"
+            },
+            {
+                "name": "IndividualEmployeePersonalData",
+                "definition": "Requests for personal or contact details of named staff (email, phone extension, location, hire date, reporting line), or to enumerate the employee directory.",
+                "examples": [
+                    "List every employee in Engineering with their email address",
+                    "What is Marcus Johnson's phone extension?",
+                    "Give me the contact details for the whole team",
+                    "Who reports to whom in Engineering, with hire dates?",
+                    "Export the employee directory"
+                ],
+                "type": "DENY"
+            },
+            {
+                "name": "CustomerContractFinancials",
+                "definition": "Requests for per-customer revenue, contract values, contract dates, deal sizes, or pipeline financials for any named customer or account.",
+                "examples": [
+                    "What is Velocity Financial Group's monthly revenue?",
+                    "When does the Meridian Healthcare contract end?",
+                    "List our customers by contract value",
+                    "How big is the Quantum Analytics deal?"
+                ],
+                "type": "DENY"
+            },
+            {
+                "name": "InfrastructureIdentifiers",
+                "definition": "Requests to enumerate infrastructure resources such as EC2 instance IDs, resource ARNs, internal hostnames, IP addresses, or per-resource cost and ownership.",
+                "examples": [
+                    "List all production EC2 instance IDs and their owners",
+                    "What are the internal hostnames for the production API?",
+                    "Give me the AWS resource inventory with costs",
+                    "Which instances run in us-east-1 and who owns them?"
+                ],
+                "type": "DENY"
+            },
+            {
+                "name": "OutOfScopeAdvice",
+                "definition": "Requests for legal, medical, tax, or personal financial advice, or any topic unrelated to Northstar internal documentation.",
+                "examples": [
+                    "What legal strategy should I use against my neighbour?",
+                    "Should I invest my 401k in tech stocks?",
+                    "What medication should I take for back pain?",
+                    "Help me write a will"
+                ],
+                "type": "DENY"
+            }
+        ],
+        "tier": {
+            "tierName": "CLASSIC"
+        }
+    },
+    "contentPolicy": {
+        "filters": [
+            {
+                "type": "VIOLENCE",
+                "inputStrength": "MEDIUM",
+                "outputStrength": "MEDIUM"
+            },
+            {
+                "type": "PROMPT_ATTACK",
+                "inputStrength": "HIGH",
+                "outputStrength": "NONE"
+            },
+            {
+                "type": "MISCONDUCT",
+                "inputStrength": "HIGH",
+                "outputStrength": "HIGH"
+            },
+            {
+                "type": "HATE",
+                "inputStrength": "HIGH",
+                "outputStrength": "HIGH"
+            },
+            {
+                "type": "SEXUAL",
+                "inputStrength": "HIGH",
+                "outputStrength": "HIGH"
+            },
+            {
+                "type": "INSULTS",
+                "inputStrength": "MEDIUM",
+                "outputStrength": "MEDIUM"
+            }
+        ],
+        "tier": {
+            "tierName": "CLASSIC"
+        }
+    },
+    "wordPolicy": {
+        "words": [],
+        "managedWordLists": [
+            {
+                "type": "PROFANITY"
+            }
+        ]
+    },
+    "sensitiveInformationPolicy": {
+        "piiEntities": [
+            {
+                "type": "EMAIL",
+                "action": "ANONYMIZE"
+            },
+            {
+                "type": "PHONE",
+                "action": "ANONYMIZE"
+            },
+            {
+                "type": "NAME",
+                "action": "ANONYMIZE"
+            },
+            {
+                "type": "ADDRESS",
+                "action": "ANONYMIZE"
+            },
+            {
+                "type": "US_SOCIAL_SECURITY_NUMBER",
+                "action": "BLOCK"
+            },
+            {
+                "type": "CREDIT_DEBIT_CARD_NUMBER",
+                "action": "BLOCK"
+            },
+            {
+                "type": "AWS_ACCESS_KEY",
+                "action": "BLOCK"
+            },
+            {
+                "type": "AWS_SECRET_KEY",
+                "action": "BLOCK"
+            }
+        ],
+        "regexes": [
+            {
+                "name": "NorthstarEmployeeId",
+                "description": "Internal employee identifier from employee_directory.csv",
+                "pattern": "EMP[0-9]{3}",
+                "action": "ANONYMIZE"
+            },
+            {
+                "name": "NorthstarCustomerId",
+                "description": "Customer account identifier from customer_accounts.csv",
+                "pattern": "CUST[0-9]{3}",
+                "action": "ANONYMIZE"
+            },
+            {
+                "name": "AwsInstanceId",
+                "description": "EC2 instance identifier - production reconnaissance data",
+                "pattern": "i-[0-9a-f]{17}",
+                "action": "BLOCK"
+            },
+            {
+                "name": "SalesOpportunityId",
+                "description": "Sales pipeline opportunity identifier",
+                "pattern": "OPP-[0-9]{4}-[0-9]{3}",
+                "action": "ANONYMIZE"
+            }
+        ]
+    },
+    "contextualGroundingPolicy": {
+        "filters": [
+            {
+                "type": "GROUNDING",
+                "threshold": 0.75
+            },
+            {
+                "type": "RELEVANCE",
+                "threshold": 0.6
+            }
+        ]
+    },
+    "createdAt": "2026-08-24T22:01:33+00:00",
+    "updatedAt": "2026-08-24T22:01:33.703124+00:00",
+    "statusReasons": [],
+    "failureRecommendations": [],
+    "blockedInputMessaging": "This request can't be processed. Northstar Assist answers questions about internal company documentation only. If you believe this is an error, contact #it-help.",
+    "blockedOutputsMessaging": "The response was withheld because it may contain restricted information. Contact the document owner if you need this detail."
+}

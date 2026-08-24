@@ -1,0 +1,10 @@
+ROLE                                   SID                    ACTION             RESOURCE
+--------------------------------------------------------------------------------------------
+NorthstarAssist-AgentRole              BedrockFullAccess      bedrock:*          *
+NorthstarAssist-AgentRole              S3FullAccess           s3:*               *
+NorthstarAssist-AgentRole              LogsFullAccess         logs:*             *
+NorthstarAssist-KnowledgeBaseRole      BedrockFullAccess      bedrock:*          *
+NorthstarAssist-KnowledgeBaseRole      S3FullAccess           s3:*               *
+NorthstarAssist-KnowledgeBaseRole      S3VectorsFullAccess    s3vectors:*        *
+
+TOTAL wildcard statements needing justification or scoping: 6
