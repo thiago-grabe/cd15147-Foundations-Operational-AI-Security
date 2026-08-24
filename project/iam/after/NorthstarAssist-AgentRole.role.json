@@ -1,0 +1,24 @@
+{
+    "RoleName": "NorthstarAssist-AgentRole",
+    "Arn": "arn:aws:iam::638018627275:role/NorthstarAssist-AgentRole",
+    "Trust": {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": "bedrock.amazonaws.com"
+                },
+                "Action": "sts:AssumeRole",
+                "Condition": {
+                    "StringEquals": {
+                        "aws:SourceAccount": "638018627275"
+                    },
+                    "ArnLike": {
+                        "aws:SourceArn": "arn:aws:bedrock:us-east-1:638018627275:*"
+                    }
+                }
+            }
+        ]
+    }
+}
