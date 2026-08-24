@@ -1,0 +1,25 @@
+AWS_ACCOUNT_ID              638018627275
+AWS_REGION                  us-east-1
+KB_S3_BUCKET                northstar-kb-docs-638018627275
+VECTOR_BUCKET               northstar-vectors-638018627275
+VECTOR_INDEX                northstar-kb-index
+VECTOR_INDEX_ARN            arn:aws:s3vectors:us-east-1:638018627275:bucket/northstar-vectors-638018627275/index/northstar-kb-index
+BEDROCK_KB_ID               4BRS8V4CUR
+BEDROCK_DS_ID               Y7I9CDZ5XD
+BEDROCK_GUARDRAIL_ID        mgyw8ekj4xf9
+BEDROCK_GUARDRAIL_VERSION   1
+FM_MODEL_ID                 amazon.nova-lite-v1:0
+EMBED_MODEL_ID              amazon.titan-embed-text-v2:0
+EMBED_DIMENSION             1024
+KB_ROLE_NAME                NorthstarAssist-KnowledgeBaseRole
+AGENT_ROLE_NAME             NorthstarAssist-AgentRole
+LOGGING_ROLE_NAME           NorthstarAssist-BedrockLoggingRole
+LOG_GROUP                   /aws/bedrock/northstar-assist
+SNS_TOPIC_ARN               arn:aws:sns:us-east-1:638018627275:northstar-ai-security-alerts
+BEDROCK_MODEL_ARN           arn:aws:bedrock:us-east-1::foundation-model/amazon.nova-lite-v1:0
+ingest_scanned              30
+ingest_failed               0
+before_passed               8/13
+before_leaking              ['T-04', 'T-05', 'T-07', 'T-13']
+after_passed                13/13
+after_intervened            9

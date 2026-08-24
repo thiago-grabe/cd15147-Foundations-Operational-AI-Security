@@ -1,0 +1,20 @@
+{
+    "index": {
+        "vectorBucketName": "northstar-vectors-638018627275",
+        "indexName": "northstar-kb-index",
+        "indexArn": "arn:aws:s3vectors:us-east-1:638018627275:bucket/northstar-vectors-638018627275/index/northstar-kb-index",
+        "creationTime": "2026-08-24T18:43:57-03:00",
+        "dataType": "float32",
+        "dimension": 1024,
+        "distanceMetric": "cosine",
+        "metadataConfiguration": {
+            "nonFilterableMetadataKeys": [
+                "AMAZON_BEDROCK_TEXT",
+                "AMAZON_BEDROCK_METADATA"
+            ]
+        },
+        "encryptionConfiguration": {
+            "sseType": "AES256"
+        }
+    }
+}

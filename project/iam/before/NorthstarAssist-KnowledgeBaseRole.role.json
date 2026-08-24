@@ -1,0 +1,17 @@
+{
+    "RoleName": "NorthstarAssist-KnowledgeBaseRole",
+    "Arn": "arn:aws:iam::638018627275:role/NorthstarAssist-KnowledgeBaseRole",
+    "Created": "2026-08-24T21:40:35+00:00",
+    "Trust": {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": "bedrock.amazonaws.com"
+                },
+                "Action": "sts:AssumeRole"
+            }
+        ]
+    }
+}

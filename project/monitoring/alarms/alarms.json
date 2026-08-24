@@ -1,0 +1,81 @@
+{
+    "MetricAlarms": [
+        {
+            "AlarmName": "NorthstarAssist-GuardrailInterventionSpike",
+            "AlarmArn": "arn:aws:cloudwatch:us-east-1:638018627275:alarm:NorthstarAssist-GuardrailInterventionSpike",
+            "AlarmDescription": "20+ guardrail blocks per hour: attack campaign, or over-blocking that is breaking legitimate use",
+            "AlarmConfigurationUpdatedTimestamp": "2026-08-24T19:07:08.418000-03:00",
+            "ActionsEnabled": true,
+            "OKActions": [],
+            "AlarmActions": [
+                "arn:aws:sns:us-east-1:638018627275:northstar-ai-security-alerts"
+            ],
+            "InsufficientDataActions": [],
+            "StateValue": "INSUFFICIENT_DATA",
+            "StateReason": "Unchecked: Initial alarm creation",
+            "StateUpdatedTimestamp": "2026-08-24T19:07:08.418000-03:00",
+            "MetricName": "GuardrailInterventions",
+            "Namespace": "NorthstarAssist",
+            "Statistic": "Sum",
+            "Dimensions": [],
+            "Period": 3600,
+            "EvaluationPeriods": 1,
+            "Threshold": 20.0,
+            "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+            "TreatMissingData": "notBreaching",
+            "StateTransitionedTimestamp": "2026-08-24T19:07:08.418000-03:00"
+        },
+        {
+            "AlarmName": "NorthstarAssist-PromptAttackSpike",
+            "AlarmArn": "arn:aws:cloudwatch:us-east-1:638018627275:alarm:NorthstarAssist-PromptAttackSpike",
+            "AlarmDescription": "5+ prompt-injection attempts in one hour indicates deliberate probing, not user error",
+            "AlarmConfigurationUpdatedTimestamp": "2026-08-24T19:07:07.137000-03:00",
+            "ActionsEnabled": true,
+            "OKActions": [],
+            "AlarmActions": [
+                "arn:aws:sns:us-east-1:638018627275:northstar-ai-security-alerts"
+            ],
+            "InsufficientDataActions": [],
+            "StateValue": "INSUFFICIENT_DATA",
+            "StateReason": "Unchecked: Initial alarm creation",
+            "StateUpdatedTimestamp": "2026-08-24T19:07:07.137000-03:00",
+            "MetricName": "PromptAttackInterventions",
+            "Namespace": "NorthstarAssist",
+            "Statistic": "Sum",
+            "Dimensions": [],
+            "Period": 3600,
+            "EvaluationPeriods": 1,
+            "Threshold": 5.0,
+            "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+            "TreatMissingData": "notBreaching",
+            "StateTransitionedTimestamp": "2026-08-24T19:07:07.137000-03:00"
+        },
+        {
+            "AlarmName": "NorthstarAssist-UngroundedResponseSpike",
+            "AlarmArn": "arn:aws:cloudwatch:us-east-1:638018627275:alarm:NorthstarAssist-UngroundedResponseSpike",
+            "AlarmDescription": "10+ ungrounded answers per hour: retrieval broken (IAM/sync), KB drift, or probing for hallucination",
+            "AlarmConfigurationUpdatedTimestamp": "2026-08-24T19:07:09.663000-03:00",
+            "ActionsEnabled": true,
+            "OKActions": [],
+            "AlarmActions": [
+                "arn:aws:sns:us-east-1:638018627275:northstar-ai-security-alerts"
+            ],
+            "InsufficientDataActions": [],
+            "StateValue": "INSUFFICIENT_DATA",
+            "StateReason": "Unchecked: Initial alarm creation",
+            "StateUpdatedTimestamp": "2026-08-24T19:07:09.663000-03:00",
+            "MetricName": "UngroundedResponses",
+            "Namespace": "NorthstarAssist",
+            "Statistic": "Sum",
+            "Dimensions": [],
+            "Period": 3600,
+            "EvaluationPeriods": 1,
+            "Threshold": 10.0,
+            "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+            "TreatMissingData": "notBreaching",
+            "StateTransitionedTimestamp": "2026-08-24T19:07:09.663000-03:00"
+        }
+    ],
+    "CompositeAlarms": [],
+    "LogAlarms": []
+}

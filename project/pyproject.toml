@@ -1,0 +1,17 @@
+[project]
+name = "northstar-assist-security"
+version = "0.1.0"
+description = "Northstar Assist - operational AI security hardening, testing, and evidence tooling"
+requires-python = ">=3.13"
+dependencies = [
+    "boto3>=1.35",          # Bedrock agent runtime, IAM, S3, CloudWatch
+    "python-dotenv>=1.0",   # loads project/.env (same pattern as streamlit_app/app.py)
+    "streamlit>=1.40",      # reference client + monitoring dashboard
+    "python-docx>=1.1",     # fills the ML-BOM / STRIDE-ML .docx templates
+    "openpyxl>=3.1",        # reads the corpus .xlsx files
+    "pandas>=2.2",          # test-result matrices, dashboard aggregation
+]
+
+[tool.uv]
+# Dependency set only - there is no importable package to build here.
+package = false

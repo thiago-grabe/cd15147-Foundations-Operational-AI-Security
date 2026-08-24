@@ -1,0 +1,23 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "BedrockFullAccess",
+            "Effect": "Allow",
+            "Action": "bedrock:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "S3FullAccess",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "S3VectorsFullAccess",
+            "Effect": "Allow",
+            "Action": "s3vectors:*",
+            "Resource": "*"
+        }
+    ]
+}

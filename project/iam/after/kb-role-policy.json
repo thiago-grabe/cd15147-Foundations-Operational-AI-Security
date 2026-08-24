@@ -1,0 +1,38 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "InvokeEmbeddingModelOnly",
+      "Effect": "Allow",
+      "Action": "bedrock:InvokeModel",
+      "Resource": "arn:aws:bedrock:us-east-1::foundation-model/amazon.titan-embed-text-v2:0"
+    },
+    {
+      "Sid": "ReadCorpusObjectsOnly",
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::northstar-kb-docs-638018627275/corpus/*",
+      "Condition": { "StringEquals": { "aws:ResourceAccount": "638018627275" } }
+    },
+    {
+      "Sid": "ListOnlyCorpusPrefix",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::northstar-kb-docs-638018627275",
+      "Condition": { "StringLike": { "s3:prefix": ["corpus/*", "corpus/"] } }
+    },
+    {
+      "Sid": "VectorIndexDataPlaneOnly",
+      "Effect": "Allow",
+      "Action": [
+        "s3vectors:GetIndex",
+        "s3vectors:PutVectors",
+        "s3vectors:GetVectors",
+        "s3vectors:QueryVectors",
+        "s3vectors:ListVectors",
+        "s3vectors:DeleteVectors"
+      ],
+      "Resource": "arn:aws:s3vectors:us-east-1:638018627275:bucket/northstar-vectors-638018627275/index/northstar-kb-index"
+    }
+  ]
+}

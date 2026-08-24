@@ -1,0 +1,68 @@
+{
+    "citations": [
+        {
+            "generatedResponsePart": {
+                "textResponsePart": {
+                    "span": {
+                        "end": 96,
+                        "start": 0
+                    },
+                    "text": "An employee with 7 years of tenure at Northstar receives 25 days of Paid Time Off (PTO) per year"
+                }
+            },
+            "retrievedReferences": [
+                {
+                    "content": {
+                        "text": "### Equity Compensation Eligible employees may receive stock option grants as part of their total compensation package. Grants are subject to a 4-year vesting schedule with a 1-year cliff. Details are provided in individual grant agreements. ## 5. Time Off \\& Leave {#time-off} ### Paid Time Off (PTO) Northstar offers a flexible PTO policy. Full-time employees receive: * **Years 0-2:** 15 days PTO per year * **Years 3-5:** 20 days PTO per year * **Years 6+:** 25 days PTO per year PTO accrues monthly and may be carried over up to 5 days into the following year. Unused PTO beyond the carryover limit will be forfeited. ### Holidays Northstar observes the following paid holidays: * New Year's Day * Martin Luther King Jr. Day * Presidents' Day * Memorial Day * Independence Day * Labor Day * Thanksgiving Day * Day after Thanksgiving * Christmas Eve * Christmas Day * 2 Floating Holidays (employee choice) ### Sick Leave Employees accrue 1 hour of sick leave for every 30 hours worked, up to a maximum of 80 hours per year. Sick leave may be used for personal illness, medical appointments, or caring for a sick family member. ### Parental Leave **Birth/Adoption Leave:** 16 weeks paid leave for primary caregivers, 8 weeks paid leave for secondary caregivers.",
+                        "type": "TEXT"
+                    },
+                    "location": {
+                        "s3Location": {
+                            "uri": "s3://northstar-kb-docs-638018627275/corpus/html/company_policies_handbook.html"
+                        },
+                        "type": "S3"
+                    },
+                    "metadata": {
+                        "x-amz-bedrock-kb-source-file-modality": "TEXT",
+                        "x-amz-bedrock-kb-chunk-id": "b9dfecd7-f69a-488b-9ba5-d1f7c4653408",
+                        "x-amz-bedrock-kb-data-source-id": "Y7I9CDZ5XD"
+                    }
+                }
+            ]
+        },
+        {
+            "generatedResponsePart": {
+                "textResponsePart": {
+                    "span": {
+                        "end": 167,
+                        "start": 98
+                    },
+                    "text": "The carryover limit for unused PTO is 5 days into the following year"
+                }
+            },
+            "retrievedReferences": [
+                {
+                    "content": {
+                        "text": "### Equity Compensation Eligible employees may receive stock option grants as part of their total compensation package. Grants are subject to a 4-year vesting schedule with a 1-year cliff. Details are provided in individual grant agreements. ## 5. Time Off \\& Leave {#time-off} ### Paid Time Off (PTO) Northstar offers a flexible PTO policy. Full-time employees receive: * **Years 0-2:** 15 days PTO per year * **Years 3-5:** 20 days PTO per year * **Years 6+:** 25 days PTO per year PTO accrues monthly and may be carried over up to 5 days into the following year. Unused PTO beyond the carryover limit will be forfeited. ### Holidays Northstar observes the following paid holidays: * New Year's Day * Martin Luther King Jr. Day * Presidents' Day * Memorial Day * Independence Day * Labor Day * Thanksgiving Day * Day after Thanksgiving * Christmas Eve * Christmas Day * 2 Floating Holidays (employee choice) ### Sick Leave Employees accrue 1 hour of sick leave for every 30 hours worked, up to a maximum of 80 hours per year. Sick leave may be used for personal illness, medical appointments, or caring for a sick family member. ### Parental Leave **Birth/Adoption Leave:** 16 weeks paid leave for primary caregivers, 8 weeks paid leave for secondary caregivers.",
+                        "type": "TEXT"
+                    },
+                    "location": {
+                        "s3Location": {
+                            "uri": "s3://northstar-kb-docs-638018627275/corpus/html/company_policies_handbook.html"
+                        },
+                        "type": "S3"
+                    },
+                    "metadata": {
+                        "x-amz-bedrock-kb-source-file-modality": "TEXT",
+                        "x-amz-bedrock-kb-chunk-id": "b9dfecd7-f69a-488b-9ba5-d1f7c4653408",
+                        "x-amz-bedrock-kb-data-source-id": "Y7I9CDZ5XD"
+                    }
+                }
+            ]
+        }
+    ],
+    "output": {
+        "text": "An employee with 7 years of tenure at Northstar receives 25 days of Paid Time Off (PTO) per year. The carryover limit for unused PTO is 5 days into the following year."
+    },
+    "sessionId": "e93ce1d2-b618-48a0-95d8-ac469848cd52"
+}
