@@ -307,37 +307,6 @@ uv run streamlit run streamlit_app/app.py          # reference client
 
 ---
 
-## Environment constraints
-
-Two forced substitutions, both documented with the exact errors:
-
-**Bedrock Agents are unavailable.** `CreateAgent` returns *"Bedrock Agents is in
-Maintenance Mode. New agent creation is not available for accounts without prior service
-usage."* Probing all 17 enabled regions: 4 in Maintenance Mode, 12 blocked by an
-organisation SCP denying `iam:PassRole`, and 1 (`us-west-1`) where creation succeeds but
-neither the required embedding model nor on-demand generation is available.
-
-`RetrieveAndGenerate` is the same managed RAG flow without the Agent wrapper and retains
-everything this project uses: citations, a custom prompt template, guardrails, and
-multi-turn sessions.
-
-**Claude 3.7 Sonnet is unavailable**; no Anthropic model is invocable in this account.
-Amazon Nova Lite — the alternative the brief permits — is used instead. Model
-availability turned out to be an *entitlement*, not a regional property, which is itself
-worth recording in a bill of materials.
-
-Two non-obvious platform behaviours also cost real time and are captured in the scripts:
-
-- **S3 Vectors rejected 28 of 30 documents** until `nonFilterableMetadataKeys` was
-  declared at index creation. Bedrock stores chunk text in `AMAZON_BEDROCK_TEXT`, and
-  filterable metadata is capped at 2048 bytes. The console sets this automatically; the
-  API does not.
-- **A custom prompt template silently breaks citations** unless it retains
-  `$output_format_instructions$`. Answers still return; `retrievedReferences` comes back
-  empty and responses can no longer be traced to a source.
-
----
-
 ## Deliverables
 
 | Task | Document |
@@ -358,11 +327,3 @@ operates on text, so none of them observe the embedding step at all.
 
 ---
 
-## Security notes
-
-`.env` holds credentials, is gitignored and `chmod 600`. No credential material appears
-in any tracked file. The corpus is synthetic: every name, address and account in this
-repository is fictional.
-
-The injection canary is a test fixture — planted and removed within a single run, with
-its removal from the index verified before any subsequent evidence is captured.
